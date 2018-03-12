@@ -1,7 +1,7 @@
 <?php
 	$error = '';
 	$host = 'localhost';
-	$database = '';
+$database = 'hiremebytom';
     $hostname ='tom';
 	$hostpass ='@tom';
 

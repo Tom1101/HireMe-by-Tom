@@ -47,13 +47,6 @@
                     <li><a href="../resume/resume-manage.php">Manage resumes</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#">Company</a>
-                <ul>
-                    <li><a href="../company/company-add.php">Create a company</a></li>
-                    <li><a href="../company-manage.php">Manage companies</a></li>
-                </ul>
-            </li>
         </ul>
         <!-- END Navigation menu -->
 
