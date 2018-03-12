@@ -46,11 +46,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#">Company</a>
-                <ul>
-                    <li><a href="company-list.php">Browse companies</a></li>
-                    <li><a href="company-detail.php">Company detail</a></li>
-                </ul>
+                <a href="../company/company-list.php">Company</a>
             </li>
         </ul>
         <!-- END Navigation menu -->
