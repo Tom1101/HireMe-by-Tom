@@ -7,7 +7,7 @@
     <meta name="description" content="Post a job position or create your online resume by TheJobs!">
     <meta name="keywords" content="">
 
-    <title>TheJobs - About</title>
+      <title>HireMe by Tom - About</title>
 
     <!-- Styles -->
     <link href="../assets/css/app.min.css" rel="stylesheet">

@@ -4,12 +4,7 @@
       <!-- Top section -->
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <h6>About</h6>
-            <p class="text-justify">HireMe by Tom is a project web application when I have exchange in APU University, Malaysia. This is a Job Portal for every people can easily to use and find jobs and also for companies and employers looking for positions and finding talent for their work. </p>
-          </div>
-
-          <div class="col-xs-6 col-md-3">
+            <div class="col-xs-6 col-md-6">
             <h6>Company</h6>
             <ul class="footer-links">
               <li><a href="page-about.html">About us</a></li>
@@ -19,9 +14,12 @@
               <li><a href="page-contact.html">Contact us</a></li>
             </ul>
           </div>
-
-          <div class="col-xs-6 col-md-3">
-          </div>
+            <div class="col-sm-12 col-md-6">
+                <h6>About</h6>
+                <p class="text-justify">HireMe by Tom is a project web application when I have exchange in APU
+                    University, Malaysia. This is a Job Portal for every people can easily to use and find jobs and also
+                    for companies and employers looking for positions and finding talent for their work. </p>
+            </div>
         </div>
 
         <hr>

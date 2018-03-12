@@ -1,4 +1,9 @@
-
+<?php
+session_start();
+if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
+    header('location:homepage.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

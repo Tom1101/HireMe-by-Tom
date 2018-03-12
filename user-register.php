@@ -18,7 +18,6 @@
     <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" href="assets/img/favicon.ico">
   </head>
 
@@ -73,7 +72,7 @@
       </div>
 
       <div class="login-links">
-        <p class="text-center">Already have an account? <a class="txt-brand" href="user-login.html">Login</a></p>
+          <p class="text-center">Already have an account? <a class="txt-brand" href="user-login.php">Login</a></p>
       </div>
 
     </main>
