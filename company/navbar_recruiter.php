@@ -46,7 +46,7 @@
                 </ul>
             </li>
             <li>
-                <a href="../company/company-list.php">Company</a>
+                <a href="../company/company-list.php">Company </a>
             </li>
         </ul>
         <!-- END Navigation menu -->
