@@ -97,7 +97,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
 
             <!-- Job item -->
             <div class="col-xs-12">
-              <a class="item-block" href="job/job-detail.php">
+              <a class="item-block" href="job-detail.php">
                 <header>
                   <img src="assets/img/logo-google.jpg" alt="">
                   <div class="hgroup">
@@ -116,7 +116,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
 
             <!-- Job item -->
             <div class="col-xs-12">
-              <a class="item-block" href="job/job-detail.php">
+              <a class="item-block" href="job-detail.php">
                 <header>
                   <img src="assets/img/logo-linkedin.png" alt="">
                   <div class="hgroup">

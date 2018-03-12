@@ -82,7 +82,7 @@
             <ul>
               <li><a href="company-list.html">Browse companies</a></li>
               <li><a href="company-detail.html">Company detail</a></li>
-              <li><a href="../company/company-add.php">Create a company</a></li>
+              <li><a href="../company-add.php">Create a company</a></li>
               <li><a href="company-manage.html">Manage companies</a></li>
             </ul>
           </li>

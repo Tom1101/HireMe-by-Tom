@@ -38,18 +38,18 @@
           <li>
               <a href="#">Jobs</a>
             <ul>
-                <li><a href="job/job-list-3.php">Browse jobs</a></li>
-                <li><a href="job/job-manage.php">Manage jobs</a></li>
+                <li><a href="job-list-3.php">Browse jobs</a></li>
+                <li><a href="job-manage.php">Manage jobs</a></li>
             </ul>
           </li>
           <li>
-              <a href="resume/resume-list.php">Browse Resume</a>
+              <a href="resume-list.php">Browse Resume</a>
           </li>
           <li>
             <a href="#">Company</a>
             <ul>
-              <li><a href="company/company-add.php">Create a company</a></li>
-                <li><a href="company/company-manage.php">Manage companies</a></li>
+              <li><a href="company-add.php">Create a company</a></li>
+                <li><a href="company-manage.php">Manage companies</a></li>
             </ul>
           </li>
         </ul>

@@ -24,7 +24,7 @@
 
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a href="profil.html">Profil</a></li>
-                <li><a href="resume/resume-manage.php">Resume</a></li>
+                <li><a href="resume-manage.php">Resume</a></li>
                 <li><a href="user-logout.php">Logout</a></li>
             </ul>
           </div>
@@ -38,13 +38,13 @@
             <a class="active" href="index.php">Home</a>
           </li>
           <li>
-              <a href="job/job-list-3.php">Browse jobs</a>
+              <a href="job-list-3.php">Browse jobs</a>
           </li>
           <li>
             <a href="#">Resume</a>
             <ul>
-                <li><a href="resume/resume-add.php">Create a resume</a></li>
-                <li><a href="resume/resume-manage.php">Manage resumes</a></li>
+                <li><a href="resume-add.php">Create a resume</a></li>
+                <li><a href="resume-manage.php">Manage resumes</a></li>
             </ul>
           </li>
         </ul>

@@ -39,14 +39,14 @@
           <li>
               <a href="#">Jobs</a>
             <ul>
-                <li><a href="job/job-list-3.php">Browse jobs</a></li>
-                <li><a href="job/job-add.php">Post a job</a></li>
-                <li><a href="job/job-manage.php">Manage jobs</a></li>
-                <li><a href="job/job-candidates.php">Candidates</a></li>
+                <li><a href="job-list-3.php">Browse jobs</a></li>
+                <li><a href="job-add.php">Post a job</a></li>
+                <li><a href="job-manage.php">Manage jobs</a></li>
+                <li><a href="job-candidates.php">Candidates</a></li>
             </ul>
           </li>
           <li>
-              <a href="company/company-list.php">Company</a>
+              <a href="company-list.php">Company</a>
           </li>
         </ul>
         <!-- END Navigation menu -->
