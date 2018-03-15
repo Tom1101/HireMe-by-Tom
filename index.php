@@ -4,6 +4,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
     header('location:homepage.php');
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,7 +49,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
 
         <!-- User account -->
         <div class="pull-right user-login">
-          <a class="btn btn-sm btn-primary" href="user-login.php">Login</a> or <a href="user-register.php">register</a>
+          <a class="btn btn-sm btn-primary" href="user-login.php">Login</a> <span style="color: black; margin-right: 7px;">or</span> <a class="btn btn-round btn-sm btn-info" href="user-register.php">register</a>
         </div>
         <!-- END User account -->
       </div>
@@ -99,7 +100,6 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
             <div class="col-xs-12">
               <a class="item-block" href="job-detail.php">
                 <header>
-                  <img src="assets/img/logo-google.jpg" alt="">
                   <div class="hgroup">
                     <h4>Senior front-end developer</h4>
                     <h5>Google</h5>
@@ -112,84 +112,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
               </a>
             </div>
             <!-- END Job item -->
-
-
-            <!-- Job item -->
-            <div class="col-xs-12">
-              <a class="item-block" href="job-detail.php">
-                <header>
-                  <img src="assets/img/logo-linkedin.png" alt="">
-                  <div class="hgroup">
-                    <h4>Software Engineer (Entry or Senior)</h4>
-                    <h5>Linkedin</h5>
-                  </div>
-                  <div class="header-meta">
-                    <span class="location">Livermore, CA</span>
-                    <span class="label label-warning">Part-time</span>
-                  </div>
-                </header>
-              </a>
-            </div>
-            <!-- END Job item -->
-
-            <!-- Job item -->
-            <div class="col-xs-12">
-              <a class="item-block" href="job-detail.html">
-                <header>
-                  <img src="assets/img/logo-envato.png" alt="">
-                  <div class="hgroup">
-                    <h4>Full Stack Web Developer</h4>
-                    <h5>Envato</h5>
-                  </div>
-                  <div class="header-meta">
-                    <span class="location">San Francisco, CA</span>
-                    <span class="label label-info">Freelance</span>
-                  </div>
-                </header>
-              </a>
-            </div>
-            <!-- END Job item -->
-
-            <!-- Job item -->
-            <div class="col-xs-12">
-              <a class="item-block" href="job-detail.html">
-                <header>
-                  <img src="assets/img/logo-facebook.png" alt="">
-                  <div class="hgroup">
-                    <h4>Web Applications Developer</h4>
-                    <h5>Facebook</h5>
-                  </div>
-                  <div class="header-meta">
-                    <span class="location">Lexington, MA</span>
-                    <span class="label label-danger">Internship</span>
-                  </div>
-                </header>
-              </a>
-            </div>
-            <!-- END Job item -->
-
-            <!-- Job item -->
-            <div class="col-xs-12">
-              <a class="item-block" href="job-detail.html">
-                <header>
-                  <img src="assets/img/logo-microsoft.jpg" alt="">
-                  <div class="hgroup">
-                    <h4>Sr. SQL Server Developer</h4>
-                    <h5>Microsoft</h5>
-                  </div>
-                  <div class="header-meta">
-                    <span class="location">Palo Alto, CA</span>
-                    <span class="label label-success">Remote</span>
-                  </div>
-                </header>
-              </a>
-            </div>
-            <!-- END Job item -->
-
           </div>
 
           <br><br>
-          <p class="text-center"><a class="btn btn-info" href="job-list-3.html">Browse all jobs</a></p>
+          <p class="text-center"><a class="btn btn-info" href="#" onclick="showmessage('alertlogin')">Browse all jobs</a></p>
+            <div style="display: none;" id="alertlogin" class="alert alert-warning" role="alert">
+                <strong>Warning!</strong> Please login to use this options. Thank you !
+            </div>
         </div>
       </section>
       <!-- END Recent jobs -->
@@ -255,6 +184,5 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
     <script src="assets/js/app.min.js"></script>
     <script src="assets/js/thejobs.js"></script>
     <script src="assets/js/custom.js"></script>
-
   </body>
 </html>

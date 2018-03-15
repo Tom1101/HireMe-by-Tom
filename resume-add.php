@@ -47,7 +47,7 @@ if ($_SESSION['type'] == 'admin') {
 <form action="#">
 
     <!-- Page header -->
-    <header class="page-header">
+    <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
         <div class="container page-name">
             <h1 class="text-center">Add your resume</h1>
             <p class="lead text-center">Create your resume and put it online.</p>
@@ -56,14 +56,8 @@ if ($_SESSION['type'] == 'admin') {
         <div class="container">
 
             <div class="row">
-                <div class="col-xs-12 col-sm-4">
-                    <div class="form-group">
-                        <input type="file" class="dropify" data-default-file="assets/img/avatar.jpg">
-                        <span class="help-block">Please choose a 4:6 profile picture.</span>
-                    </div>
-                </div>
 
-                <div class="col-xs-12 col-sm-8">
+                <div class="col-xs-12 col-sm-12">
                     <div class="form-group">
                         <input type="text" class="form-control input-lg" placeholder="Name">
                     </div>
@@ -128,31 +122,57 @@ if ($_SESSION['type'] == 'admin') {
                     </div>
 
                     <hr class="hr-lg">
+                    <h6>Education</h6>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Degree, e.g. Bachelor">
+                            </div>
 
-                    <!--<h6>Tags list</h6>
-                    <div class="form-group">
-                      <input type="text" value="HTML,CSS,Javascript" data-role="tagsinput" placeholder="Tag name">
-                      <span class="help-block">Write tag name and press enter</span>
-                    </div> -->
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       placeholder="Major, e.g. Computer Science">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       placeholder="School name, e.g. Massachusetts Institute of Technology">
+                            </div>
 
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Date from</span>
+                                    <input type="text" class="form-control" placeholder="e.g. 2012">
+                                    <span class="input-group-addon">Date to</span>
+                                    <input type="text" class="form-control" placeholder="e.g. 2016">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="hr-lg">
+                    <h6>Experiences</h6>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Company name">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       placeholder="Position, e.g. UI/UX Researcher">
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Date from</span>
+                                    <input type="text" class="form-control" placeholder="e.g. 2012">
+                                    <span class="input-group-addon">Date to</span>
+                                    <input type="text" class="form-control" placeholder="e.g. 2016">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!--<div class="button-group">
-              <div class="action-buttons">
-
-                <div class="upload-button">
-                  <button class="btn btn-block btn-gray">Choose a resume file</button>
-                  <input type="file">
-                </div>
-
-                <div class="upload-button">
-                  <button class="btn btn-block btn-primary">Choose a cover image</button>
-                  <input id="cover_img_file" type="file">
-                </div>
-
-              </div>
-            </div>-->
         </div>
     </header>
     <!-- END Page header -->
@@ -160,295 +180,6 @@ if ($_SESSION['type'] == 'admin') {
 
     <!-- Main container -->
     <main>
-        <!-- Education -->
-        <section class=" bg-alt">
-            <div class="container">
-
-                <header class="section-header">
-                    <span>Latest degrees</span>
-                    <h2>Education</h2>
-                </header>
-
-                <div class="row">
-
-                    <div class="col-xs-12">
-                        <div class="item-block">
-                            <div class="item-form">
-
-                                <button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Degree, e.g. Bachelor">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   placeholder="Major, e.g. Computer Science">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   placeholder="School name, e.g. Massachusetts Institute of Technology">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Date from</span>
-                                                <input type="text" class="form-control" placeholder="e.g. 2012">
-                                                <span class="input-group-addon">Date to</span>
-                                                <input type="text" class="form-control" placeholder="e.g. 2016">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <textarea class="form-control" rows="3"
-                                                      placeholder="Short description"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 duplicateable-content">
-                        <div class="item-block">
-                            <div class="item-form">
-
-                                <button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Degree, e.g. Bachelor">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   placeholder="Major, e.g. Computer Science">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   placeholder="School name, e.g. Massachusetts Institute of Technology">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Date from</span>
-                                                <input type="text" class="form-control" placeholder="e.g. 2012">
-                                                <span class="input-group-addon">Date to</span>
-                                                <input type="text" class="form-control" placeholder="e.g. 2016">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <textarea class="form-control" rows="3"
-                                                      placeholder="Short description"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 text-center">
-                        <br>
-                        <button class="btn btn-primary btn-duplicator">Add education</button>
-                    </div>
-
-
-                </div>
-            </div>
-        </section>
-        <!-- END Education -->
-
-
-        <!-- Work Experience -->
-        <section>
-            <div class="container">
-                <header class="section-header">
-                    <span>Past positions</span>
-                    <h2>Work Experience</h2>
-                </header>
-
-                <div class="row">
-
-                    <div class="col-xs-12">
-                        <div class="item-block">
-                            <div class="item-form">
-
-                                <button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Company name">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   placeholder="Position, e.g. UI/UX Researcher">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Date from</span>
-                                                <input type="text" class="form-control" placeholder="e.g. 2012">
-                                                <span class="input-group-addon">Date to</span>
-                                                <input type="text" class="form-control" placeholder="e.g. 2016">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
-                                            <textarea class="summernote-editor"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 duplicateable-content">
-                        <div class="item-block">
-                            <div class="item-form">
-
-                                <button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Company name">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   placeholder="Position, e.g. UI/UX Researcher">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Date from</span>
-                                                <input type="text" class="form-control" placeholder="e.g. 2012">
-                                                <span class="input-group-addon">Date to</span>
-                                                <input type="text" class="form-control" placeholder="e.g. 2016">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
-                                            <textarea class="summernote-editor"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 text-center">
-                        <br>
-                        <button class="btn btn-primary btn-duplicator">Add experience</button>
-                    </div>
-
-
-                </div>
-
-            </div>
-        </section>
-        <!-- END Work Experience -->
-
-
-        <!-- Skills -->
-        <section class=" bg-alt">
-            <div class="container">
-                <header class="section-header">
-                    <span>Expertise Areas</span>
-                    <h2>Skills</h2>
-                </header>
-
-                <div class="row">
-
-                    <div class="col-xs-12">
-                        <div class="item-block">
-                            <div class="item-form">
-
-                                <button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Skill name, e.g. HTML">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-6">
-
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control"
-                                                       placeholder="Skill proficiency, e.g. 90">
-                                                <span class="input-group-addon">%</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 duplicateable-content">
-                        <div class="item-block">
-                            <div class="item-form">
-
-                                <button class="btn btn-danger btn-float btn-remove"><i class="ti-close"></i></button>
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Skill name, e.g. HTML">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-6">
-
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control"
-                                                       placeholder="Skill proficiency, e.g. 90">
-                                                <span class="input-group-addon">%</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 text-center">
-                        <br>
-                        <button class="btn btn-primary btn-duplicator">Add Skill</button>
-                    </div>
-
-
-                </div>
-
-            </div>
-        </section>
-        <!-- END Skills -->
-
-
         <!-- Submit -->
         <section class=" bg-img" style="background-image: url(assets/img/bg-facts.jpg);">
             <div class="container">
@@ -466,14 +197,12 @@ if ($_SESSION['type'] == 'admin') {
             </div>
         </section>
         <!-- END Submit -->
-
-
     </main>
     <!-- END Main container -->
 
 </form>
 
-<?php include '../footer.php'; ?>
+<?php include 'footer.php'; ?>
 
 
 <!-- Back to top button -->

@@ -19,7 +19,7 @@
 
           <div class="dropdown user-account">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                <h5>Welcome <span style="color: white"><?php echo $_SESSION['username']; ?></span></h5>
+                <h5>Welcome <span style="color: black"><?php echo $_SESSION['username']; ?></span></h5>
             </a>
 
             <ul class="dropdown-menu dropdown-menu-right">
@@ -45,9 +45,9 @@
                 <li><a href="job-candidates.php">Candidates</a></li>
             </ul>
           </li>
-          <li>
+          <!--<li>
               <a href="company-list.php">Company</a>
-          </li>
+          </li>-->
         </ul>
         <!-- END Navigation menu -->
 

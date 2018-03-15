@@ -328,7 +328,7 @@ if ($_SESSION['type'] == 'admin') {
 
 
 <!-- Site footer -->
-<?php include '../footer.php' ?>
+<?php include 'footer.php' ?>
 <!-- END Site footer -->
 
 

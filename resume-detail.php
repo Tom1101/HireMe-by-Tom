@@ -275,7 +275,7 @@ if ($_SESSION['type'] == 'admin') {
 <!-- END Main container -->
 
 <!-- Footer -->
-<?php include '../footer.php' ?>
+<?php include 'footer.php' ?>
 
 
 <!-- Back to top button -->

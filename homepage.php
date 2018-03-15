@@ -33,13 +33,17 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
+include 'connectDB.php';
+
+$req = $pdo->query('SELECT * FROM job ORDER BY id_job DESC limit 5');
+
 if ($_SESSION['type'] == 'admin') {
     include 'navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
     include 'navbar_applicant.php';
 } else {
     include 'navbar_recruiter.php';
-}
+};
 ?>
 <!-- END Navigation bar -->
 
@@ -81,102 +85,30 @@ if ($_SESSION['type'] == 'admin') {
             </header>
 
             <div class="row item-blocks-connected">
+<?php foreach ($req as $data){
 
+?>
                 <!-- Job item -->
                 <div class="col-xs-12">
-                    <a class="item-block" href="job-detail.php">
+                    <a class="item-block" href="job-detail.php?id=<?php echo $data['id_job']; ?>">
                         <header>
-                            <img src="assets/img/logo-google.jpg" alt="">
                             <div class="hgroup">
-                                <h4>Senior front-end developer</h4>
-                                <h5>Google</h5>
+                                <h4><?php echo $data['title']; ?></h4>
+                                <h5><?php echo $data['company']; ?></h5>
                             </div>
                             <div class="header-meta">
-                                <span class="location">Menlo park, CA</span>
-                                <span class="label label-success">Full-time</span>
+                                <span class="location"><?php echo $data['location']; ?></span>
+                                <span class="label label-success"><?php echo $data['position']; ?></span>
                             </div>
                         </header>
                     </a>
                 </div>
                 <!-- END Job item -->
-
-
-                <!-- Job item -->
-                <div class="col-xs-12">
-                    <a class="item-block" href="job-detail.php">
-                        <header>
-                            <img src="assets/img/logo-linkedin.png" alt="">
-                            <div class="hgroup">
-                                <h4>Software Engineer (Entry or Senior)</h4>
-                                <h5>Linkedin</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Livermore, CA</span>
-                                <span class="label label-warning">Part-time</span>
-                            </div>
-                        </header>
-                    </a>
-                </div>
-                <!-- END Job item -->
-
-                <!-- Job item -->
-                <div class="col-xs-12">
-                    <a class="item-block" href="job-detail.html">
-                        <header>
-                            <img src="assets/img/logo-envato.png" alt="">
-                            <div class="hgroup">
-                                <h4>Full Stack Web Developer</h4>
-                                <h5>Envato</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">San Francisco, CA</span>
-                                <span class="label label-info">Freelance</span>
-                            </div>
-                        </header>
-                    </a>
-                </div>
-                <!-- END Job item -->
-
-                <!-- Job item -->
-                <div class="col-xs-12">
-                    <a class="item-block" href="job-detail.html">
-                        <header>
-                            <img src="assets/img/logo-facebook.png" alt="">
-                            <div class="hgroup">
-                                <h4>Web Applications Developer</h4>
-                                <h5>Facebook</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Lexington, MA</span>
-                                <span class="label label-danger">Internship</span>
-                            </div>
-                        </header>
-                    </a>
-                </div>
-                <!-- END Job item -->
-
-                <!-- Job item -->
-                <div class="col-xs-12">
-                    <a class="item-block" href="job-detail.html">
-                        <header>
-                            <img src="assets/img/logo-microsoft.jpg" alt="">
-                            <div class="hgroup">
-                                <h4>Sr. SQL Server Developer</h4>
-                                <h5>Microsoft</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Palo Alto, CA</span>
-                                <span class="label label-success">Remote</span>
-                            </div>
-                        </header>
-                    </a>
-                </div>
-                <!-- END Job item -->
-
+<?php }?>
             </div>
 
             <br><br>
-            <p class="text-center"><a class="btn btn-info" href="job-list-3.html">Browse all jobs</a></p>
+            <p class="text-center"><a class="btn btn-info" href="job-list-3.php">Browse all jobs</a></p>
         </div>
     </section>
     <!-- END Recent jobs -->

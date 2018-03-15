@@ -45,7 +45,7 @@ if ($_SESSION['type'] == 'admin') {
 
 
 <!-- Page header -->
-<header class="page-header bg-img size-lg" style="background-image: url(../assets/img/bg-banner2.jpg)">
+<header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
     <div class="container no-shadow">
         <h1 class="text-center">Manage your resumes</h1>
         <p class="lead text-center">Here's the list of your created resumes. You can edit or delete them, or even add a
@@ -165,7 +165,7 @@ if ($_SESSION['type'] == 'admin') {
 
 
 <!-- Site footer -->
-<?php include '../footer.php' ?>
+<?php include 'footer.php' ?>
 <!-- END Site footer -->
 
 
