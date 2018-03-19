@@ -7,8 +7,8 @@
           <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
 
           <div class="logo-wrapper">
-            <a class="logo" href="../index.php"><img src="../assets/img/logo.png" alt="logo"></a>
-            <a class="logo-alt" href="../index.php"><img src="../assets/img/logo-alt.png" alt="logo-alt"></a>
+            <a class="logo" href="index.php"><img src="assets/img/logo.png" alt="logo"></a>
+            <a class="logo-alt" href="index.php"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
           </div>
 
         </div>
@@ -24,8 +24,8 @@
 
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a href="profil.html">Profil</a></li>
-                <li><a href="../resume-manage.php">Resume</a></li>
-                <li><a href="../user-logout.php">Logout</a></li>
+                <li><a href="resume-manage.php">Resume</a></li>
+                <li><a href="user-logout.php">Logout</a></li>
             </ul>
           </div>
 
@@ -35,10 +35,10 @@
         <!-- Navigation menu -->
         <ul class="nav-menu">
           <li>
-            <a class="active" href="../index.php">Home</a>
+            <a class="active" href="index.php">Home</a>
           </li>
           <li>
-              <a href="../job-list-3.php">Browse jobs</a>
+              <a href="job-list-3.php">Browse jobs</a>
           </li>
           <!--<li>
             <a href="#">Resume</a>

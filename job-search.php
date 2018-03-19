@@ -33,12 +33,12 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
-include 'connectDB.php';
+include 'scriptphp/connectDB.php';
 
 
 $conn = mysqli_connect('localhost:8889', 'tom', '@tom', 'hiremebytom');
 
-include 'searchpagepagi.php';
+include 'scriptphp/searchpagepagi.php';
 
 if(isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
     $result = mysqli_query($conn, 'SELECT * FROM job WHERE title = "'.$_POST['jobtitle'].'" LIMIT ' . $start . ', ' . $limit . '');
@@ -51,11 +51,11 @@ if(isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
 }
 
 if ($_SESSION['type'] == 'admin') {
-    include 'navbar_admin.php';
+    include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
-    include 'navbar_applicant.php';
+    include 'scriptphp/navbar_applicant.php';
 } else {
-    include 'navbar_recruiter.php';
+    include 'scriptphp/navbar_recruiter.php';
 };
 
 
@@ -164,7 +164,7 @@ if ($_SESSION['type'] == 'admin') {
 
 
 <!-- Site footer -->
-<?php include '../footer.php' ?>
+<?php include 'scriptphp/footer.php' ?>
 <!-- END Site footer -->
 
 

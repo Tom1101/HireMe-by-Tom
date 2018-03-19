@@ -34,7 +34,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
  * Date: 15/03/2018
  * Time: 09:32
  */
-include 'connectDB.php';
+include 'scriptphp/connectDB.php';
 if(isset($_GET['id'])){
     $req = $pdo->prepare('delete from job where id_job = ?');
     $req->execute([$_GET['id']]);

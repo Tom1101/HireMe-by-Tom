@@ -32,7 +32,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
-include 'connectDB.php';
+include 'scriptphp/connectDB.php';
 if(isset($_POST['submit_button'])){
     if(!empty($_POST['title']) && !empty($_POST['company']) && !empty($_POST['description']) && !empty($_POST['url']) && !empty($_POST['location']) && !empty($_POST['hours']) && !empty($_POST['experience']) && !empty($_POST['position']) && !empty($_POST['salary']) && !empty($_POST['level'])) {
         if(is_numeric($_POST['hours']) && is_numeric($_POST['experience']) && is_numeric($_POST['salary'])) {
@@ -159,7 +159,7 @@ if ($_SESSION['type'] == 'admin') {
 <!-- END Page header -->
 
 <!-- Site footer -->
-<?php include 'footer.php' ?>
+<?php include 'scriptphp/footer.php' ?>
 <!-- END Site footer -->
 
 

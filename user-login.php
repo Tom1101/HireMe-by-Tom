@@ -6,7 +6,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username']))
 }
 else
 {
-include 'connectDB.php';
+include 'scriptphp/connectDB.php';
 
 if (isset($_POST['user_login'])) {
 // Vérification des identifiants

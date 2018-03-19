@@ -35,7 +35,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 <!-- Navigation bar -->
 <?php
 
-include 'connectDB.php';
+include 'scriptphp/connectDB.php';
 
 $conn = mysqli_connect('localhost:8889', 'tom', '@tom', 'hiremebytom');
 
@@ -176,7 +176,7 @@ if ($_SESSION['type'] == 'admin') {
 </div>
 <!-- End The Modal -->
 <!-- Site footer -->
-<?php include '../footer.php' ?>
+<?php include 'scriptphp/footer.php' ?>
 <!-- END Site footer -->
 
 

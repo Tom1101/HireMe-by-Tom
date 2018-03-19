@@ -32,6 +32,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
+include 'scriptphp/connectDB.php';
 if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
@@ -115,7 +116,7 @@ if ($_SESSION['type'] == 'admin') {
 
 
 <!-- Site footer -->
-<?php include '../footer.php' ?>
+<?php include 'scriptphp/footer.php' ?>
 <!-- END Site footer -->
 
 

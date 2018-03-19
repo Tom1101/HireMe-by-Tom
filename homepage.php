@@ -25,7 +25,6 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
           rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" href="assets/img/favicon.ico">
 </head>
 
@@ -33,7 +32,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
-include 'connectDB.php';
+include 'scriptphp/connectDB.php';
 
 $req = $pdo->query('SELECT * FROM job ORDER BY id_job DESC limit 5');
 
@@ -165,7 +164,7 @@ if ($_SESSION['type'] == 'admin') {
 
 </main>
 <!-- END Main container -->
-<?php include 'footer.php'; ?>
+<?php include 'scriptphp/footer.php'; ?>
 <!-- Back to top button -->
 <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
 <!-- END Back to top button -->
