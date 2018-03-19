@@ -34,17 +34,47 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
+
+include 'connectDB.php';
+
+if (isset($_POST['submit_button'])) {
+    if (!empty($_POST['title']) && !empty($_POST['company']) && !empty($_POST['description']) && !empty($_POST['url']) && !empty($_POST['location']) && !empty($_POST['hours']) && !empty($_POST['experience']) && !empty($_POST['position']) && !empty($_POST['salary']) && !empty($_POST['level'])) {
+        if (is_numeric($_POST['hours']) && is_numeric($_POST['experience']) && is_numeric($_POST['salary'])) {
+            $req_re = $pdo->prepare('insert into resume (name, headline, description, location, salary, phone, age, email, website) VALUES (?,?,?,?,?,?,?,?,?)');
+            if ($req->execute([$_POST['title'], $_POST['company'], $_POST['description'], $_POST['url'], $_POST['location'], $_POST['hours'], $_POST['experience'], $_POST['position'], $_POST['salary'], $_POST['level']])) {
+                $req_idres = $pdo->query('select count(id_resume) as totalid from resume');
+                $totalid = $req_idres->fetch();
+                $req_ed = $pdo->prepare('insert into education (degree, major, schoolname, datefrom, dateto, id_resume) VALUES (?,?,?,?,?,?)');
+                $req_ex = $pdo->prepare('insert into experience (companyname, position, datefrom, dateto, id_resume) VALUES (?,?,?,?,?)');
+                if ($req->execute([$_POST['title'], $_POST['company'], $_POST['description'], $_POST['url'], $_POST['location'], $_POST['hours'], $_POST['experience'], $_POST['position'], $_POST['salary'], $_POST['level']])) {
+                    if ($req->execute([$_POST['title'], $_POST['company'], $_POST['description'], $_POST['url'], $_POST['location'], $_POST['hours'], $_POST['experience'], $_POST['position'], $_POST['salary'], $_POST['level']])) {
+                        echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Well done ! Add Job Success ! </strong></div>";
+                    }
+
+                }
+
+            } else {
+                echo "<div class=\"alert alert-warning\" role=\"alert\"><strong>Warning!</strong> Please enter valid values.</div>";
+            }
+        } else {
+            echo "<div class=\"alert alert-warning\" role=\"alert\"><strong>Warning!</strong> Please verify if Salary, Hours, Years is valid values (Interger).</div>";
+        }
+    } else {
+        echo "<div class=\"alert alert-warning\" role=\"alert\"><strong>Warning!</strong> Please enter valid values.</div>";
+    }
+};
+
 if ($_SESSION['type'] == 'admin') {
-    include 'navbar_admin.php';
+    include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
-    include 'navbar_applicant.php';
+    include 'scriptphp/navbar_applicant.php';
 } else {
-    include 'navbar_recruiter.php';
+    include 'scriptphp/navbar_recruiter.php';
 }
 ?>
 <!-- END Navigation bar -->
 
-<form action="#">
+<form method="POST" action="resume-add.php">
 
     <!-- Page header -->
     <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
@@ -59,15 +89,17 @@ if ($_SESSION['type'] == 'admin') {
 
                 <div class="col-xs-12 col-sm-12">
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" placeholder="Name">
+                        <input name="name" type="text" class="form-control input-lg" placeholder="Name">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Headline (e.g. Front-end developer)">
+                        <input name="headline" type="text" class="form-control"
+                               placeholder="Headline (e.g. Front-end developer)">
                     </div>
 
                     <div class="form-group">
-                        <textarea class="form-control" rows="3" placeholder="Short description about you"></textarea>
+                        <textarea name="description" class="form-control" rows="3"
+                                  placeholder="Short description about you"></textarea>
                     </div>
 
                     <hr class="hr-lg">
@@ -78,21 +110,22 @@ if ($_SESSION['type'] == 'admin') {
                         <div class="form-group col-xs-12 col-sm-6">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-                                <input type="text" class="form-control" placeholder="Location, e.g. Melon Park, CA">
+                                <input name="location" type="text" class="form-control"
+                                       placeholder="Location, e.g. Melon Park, CA">
                             </div>
                         </div>
 
                         <div class="form-group col-xs-12 col-sm-6">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-                                <input type="text" class="form-control" placeholder="Website address">
+                                <input name="website" type="text" class="form-control" placeholder="Website address">
                             </div>
                         </div>
 
                         <div class="form-group col-xs-12 col-sm-6">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon"><i class="fa fa-usd"></i></span>
-                                <input type="text" class="form-control" placeholder="Salary, e.g. 85">
+                                <input name="salary" type="text" class="form-control" placeholder="Salary, e.g. 85">
                                 <span class="input-group-addon">Per hour</span>
                             </div>
                         </div>
@@ -100,7 +133,7 @@ if ($_SESSION['type'] == 'admin') {
                         <div class="form-group col-xs-12 col-sm-6">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-                                <input type="text" class="form-control" placeholder="Age">
+                                <input name="age" type="text" class="form-control" placeholder="Age">
                                 <span class="input-group-addon">Years old</span>
                             </div>
                         </div>
@@ -108,14 +141,14 @@ if ($_SESSION['type'] == 'admin') {
                         <div class="form-group col-xs-12 col-sm-6">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                <input type="text" class="form-control" placeholder="Phone number">
+                                <input name="phone" type="text" class="form-control" placeholder="Phone number">
                             </div>
                         </div>
 
                         <div class="form-group col-xs-12 col-sm-6">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                <input type="text" class="form-control" placeholder="Email address">
+                                <input name="email" type="text" class="form-control" placeholder="Email address">
                             </div>
                         </div>
 
@@ -126,24 +159,25 @@ if ($_SESSION['type'] == 'admin') {
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Degree, e.g. Bachelor">
+                                <input name="ed_degree" type="text" class="form-control"
+                                       placeholder="Degree, e.g. Bachelor">
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control"
+                                <input name="ed_major" type="text" class="form-control"
                                        placeholder="Major, e.g. Computer Science">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control"
+                                <input name="ed_schoolname" type="text" class="form-control"
                                        placeholder="School name, e.g. Massachusetts Institute of Technology">
                             </div>
 
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">Date from</span>
-                                    <input type="text" class="form-control" placeholder="e.g. 2012">
+                                    <input name="date_from" type="text" class="form-control" placeholder="e.g. 2012">
                                     <span class="input-group-addon">Date to</span>
-                                    <input type="text" class="form-control" placeholder="e.g. 2016">
+                                    <input name="ed_dateto" type="text" class="form-control" placeholder="e.g. 2016">
                                 </div>
                             </div>
                         </div>
@@ -153,20 +187,21 @@ if ($_SESSION['type'] == 'admin') {
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Company name">
+                                <input name="ex_companyname" type="text" class="form-control"
+                                       placeholder="Company name">
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control"
+                                <input name="ex_position" type="text" class="form-control"
                                        placeholder="Position, e.g. UI/UX Researcher">
                             </div>
 
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">Date from</span>
-                                    <input type="text" class="form-control" placeholder="e.g. 2012">
+                                    <input name="ex_datefrom" type="text" class="form-control" placeholder="e.g. 2012">
                                     <span class="input-group-addon">Date to</span>
-                                    <input type="text" class="form-control" placeholder="e.g. 2016">
+                                    <input name="ex_dateto" type="text" class="form-control" placeholder="e.g. 2016">
                                 </div>
                             </div>
                         </div>
@@ -191,7 +226,9 @@ if ($_SESSION['type'] == 'admin') {
                 </header>
 
                 <p class="text-center">
-                    <button class="btn btn-success btn-xl btn-round">Submit your resume</button>
+                    <button name="submit_button" type="submit" class="btn btn-success btn-xl btn-round">Submit your
+                        resume
+                    </button>
                 </p>
 
             </div>

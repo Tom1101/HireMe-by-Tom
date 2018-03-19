@@ -63,11 +63,11 @@ $start = ($current_page - 1) * $limit;
 $result = mysqli_query($conn, "SELECT * FROM job LIMIT $start, $limit");
 
 if ($_SESSION['type'] == 'admin') {
-    include 'navbar_admin.php';
+    include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
-    include 'navbar_applicant.php';
+    include 'scriptphp/navbar_applicant.php';
 } else {
-    include 'navbar_recruiter.php';
+    include 'scriptphp/navbar_recruiter.php';
 }
 ?>
 <!-- END Navigation bar -->
@@ -109,7 +109,7 @@ if ($_SESSION['type'] == 'admin') {
                                     <footer>
                                         <div class="action-btn">
                                             <a class="btn btn-xs btn-gray" href="job-edit.php?id=<?php echo $data['id_job']; ?>">Edit</a>
-                                            <a class="btn btn-xs btn-danger" href="job-delete.php?id=<?php echo $data['id_job']; ?>">Delete</a>
+                                            <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" data-id="job-delete.php?id=<?php echo $data['id_job'];?>">Delete</a>
                                         </div>
                                     </footer>
                                 </div>
@@ -151,8 +151,30 @@ if ($_SESSION['type'] == 'admin') {
     </section>
 </main>
 <!-- END Main container -->
+<!-- The Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deleting Job ?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
+            <!-- Modal body -->
+            <div class="modal-body">
+                Are you sure that you want to delete the job ?
+            </div>
 
+            <!-- Modal footer -->
+            <div class="modal-footer center">
+                <a id="hrefdelete" href="x" type="button" class="btn btn-success">Yes</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End The Modal -->
 <!-- Site footer -->
 <?php include '../footer.php' ?>
 <!-- END Site footer -->
@@ -166,6 +188,12 @@ if ($_SESSION['type'] == 'admin') {
 <script src="assets/js/app.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
-
+<script>
+    $('#myModal').on('show.bs.modal', function (e) {
+        var myRoomNumber = $(e.relatedTarget).attr('data-id');
+        $(this).find('.roomNumber').text(myRoomNumber);
+        $("#hrefdelete").attr("href", myRoomNumber);
+    });
+</script>
 </body>
 </html>

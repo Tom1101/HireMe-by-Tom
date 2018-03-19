@@ -35,11 +35,11 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 include 'connectDB.php';
 
 if ($_SESSION['type'] == 'admin') {
-    include 'navbar_admin.php';
+    include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
-    include 'navbar_applicant.php';
+    include 'scriptphp/navbar_applicant.php';
 } else {
-    include 'navbar_recruiter.php';
+    include 'scriptphp/navbar_recruiter.php';
 };
 
 if(isset($_GET['id']))
@@ -56,7 +56,6 @@ if(isset($_GET['id']))
 <header class="page-header bg-img size-lg" style="background-image: url(../assets/img/bg-banner2.jpg)">
     <div class="container">
         <div class="header-detail">
-            <img class="logo" src="assets/img/logo-google.jpg" alt="">
             <div class="hgroup">
                 <h1><?php echo $data['title']; ?></h1>
                 <h3><a href="#"><?php echo $data['company']; ?></a></h3>

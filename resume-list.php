@@ -34,11 +34,11 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 <!-- Navigation bar -->
 <?php
 if ($_SESSION['type'] == 'admin') {
-    include 'navbar_admin.php';
+    include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
-    include 'navbar_applicant.php';
+    include 'scriptphp/navbar_applicant.php';
 } else {
-    include 'navbar_recruiter.php';
+    include 'scriptphp/navbar_recruiter.php';
 }
 ?>
 <!-- END Navigation bar -->

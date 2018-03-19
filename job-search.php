@@ -35,9 +35,10 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 <?php
 include 'connectDB.php';
 
+
 $conn = mysqli_connect('localhost:8889', 'tom', '@tom', 'hiremebytom');
 
-include 'scriptphp/searchpagepagi.php';
+include 'searchpagepagi.php';
 
 if(isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
     $result = mysqli_query($conn, 'SELECT * FROM job WHERE title = "'.$_POST['jobtitle'].'" LIMIT ' . $start . ', ' . $limit . '');
@@ -50,11 +51,11 @@ if(isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
 }
 
 if ($_SESSION['type'] == 'admin') {
-    include 'scriptphp/navbar_admin.php';
+    include 'navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
-    include 'scriptphp/navbar_applicant.php';
+    include 'navbar_applicant.php';
 } else {
-    include 'scriptphp/navbar_recruiter.php';
+    include 'navbar_recruiter.php';
 };
 
 
@@ -66,12 +67,12 @@ if ($_SESSION['type'] == 'admin') {
 <!-- Page header -->
 <header class="page-header bg-img" style="background-image: url(assets/img/bg-banner1.jpg);">
     <div class="container page-name">
-        <h1 class="text-center">Browse jobs</h1>
+        <h1 class="text-center">Finding jobs</h1>
         <p class="lead text-center">Use following search box to find jobs that fits you better</p>
     </div>
 
     <div class="container">
-        <form method="POST" action="job-list-3.php">
+        <form method="POST" action="job-search.php">
             <h1 class="text-center">Search jobs</h1>
             <p class="lead text-center">Please just search in one box !</p>
             <div id="jobtitle" class=" searchbox form-group col-xs-4 col-sm-4">
@@ -103,13 +104,6 @@ if ($_SESSION['type'] == 'admin') {
     <section class="no-padding-top bg-alt">
         <div class="container">
             <div class="row item-blocks-connected">
-                <div class="col-xs-12">
-                    <br>
-                    <h5>We have <strong><?php $req2 = $pdo->query('select count(id_job) as totaljob from job');
-                            $data3 = $req2->fetch();
-                            echo $data3['totaljob']; ?></strong> active jobs.</h5>
-                    <br>
-                </div>
 
                 <?php while ($data = mysqli_fetch_assoc($result)) { ?>
                     <!-- Job item -->
@@ -139,7 +133,7 @@ if ($_SESSION['type'] == 'admin') {
 
                     // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                     if ($current_page > 1 && $total_page > 1) {
-                        echo '<li><a href="job-list-3.php?page=' . ($current_page - 1) . '"><i class="ti-angle-left"></i></a></li> ';
+                        echo '<li><a href="job-search.php?page=' . ($current_page - 1) . '"><i class="ti-angle-left"></i></a></li> ';
                     }
 
                     // Lặp khoảng giữa
@@ -149,13 +143,13 @@ if ($_SESSION['type'] == 'admin') {
                         if ($i == $current_page) {
                             echo '<li class="active"><span>' . $i . '</span></li> ';
                         } else {
-                            echo '<li><a href="job-list-3.php?page=' . $i . '">' . $i . '</a></li> ';
+                            echo '<li><a href="job-search.php?page=' . $i . '">' . $i . '</a></li> ';
                         }
                     }
 
                     // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
                     if ($current_page < $total_page && $total_page > 1) {
-                        echo '<li><a href="job-list-3.php?page=' . ($current_page - 1) . '"><i class="ti-angle-right"></i></a></li> ';
+                        echo '<li><a href="job-search.php?page=' . ($current_page - 1) . '"><i class="ti-angle-right"></i></a></li> ';
                     }
                     ?>
                 </ul>
@@ -182,13 +176,6 @@ if ($_SESSION['type'] == 'admin') {
 <script src="assets/js/app.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
-<!--<script>
-    $(function() {
-        $('#searchselected').change(function(){
-            $('.searchbox').hide();
-            $('#' + $(this).val()).show();
-        });
-    });
-</script>-->
+
 </body>
 </html>

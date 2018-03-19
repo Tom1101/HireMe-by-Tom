@@ -24,7 +24,6 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" href="assets/img/favicon.ico">
 </head>
 
@@ -34,11 +33,11 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 <!-- Navigation bar -->
 <?php
 if ($_SESSION['type'] == 'admin') {
-    include 'navbar_admin.php';
+    include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
-    include 'navbar_applicant.php';
+    include 'scriptphp/navbar_applicant.php';
 } else {
-    include 'navbar_recruiter.php';
+    include 'scriptphp/navbar_recruiter.php';
 }
 ?>
 <!-- END Navigation bar -->
@@ -84,17 +83,9 @@ if ($_SESSION['type'] == 'admin') {
                 <div class="col-xs-12">
                     <div class="item-block">
                         <header>
-                            <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar-1.jpg" alt=""></a>
                             <div class="hgroup">
                                 <h4>
                                     <a href="resume-detail.html">John Doe</a>
-                                    <select class="form-control selectpicker label-style">
-                                        <option data-content="<span class='label label-default'>New</span>" selected>New</option>
-                                        <option data-content="<span class='label label-warning'>Contacted</span>">Contacted</option>
-                                        <option data-content="<span class='label label-info'>Interviewed</span>">Interviewed</option>
-                                        <option data-content="<span class='label label-success'>Hired</span>">Hired</option>
-                                        <option data-content="<span class='label label-danger'>Archived</span>">Archived</option>
-                                    </select>
                                 </h4>
                                 <h5>Front-end developer</h5>
                             </div>
@@ -108,7 +99,6 @@ if ($_SESSION['type'] == 'admin') {
                             <div class="status"><strong>Applied on:</strong> July 16, 2016</div>
 
                             <div class="action-btn">
-                                <a class="btn btn-xs btn-gray" href="#">Download CV</a>
                                 <a class="btn btn-xs btn-gray" data-toggle="modal" data-target="#modal-contact" href="#">Contact</a>
                                 <a class="btn btn-xs btn-danger" href="#">Delete</a>
                             </div>
@@ -116,121 +106,6 @@ if ($_SESSION['type'] == 'admin') {
                     </div>
                 </div>
                 <!-- END Candidate item -->
-
-
-                <!-- Candidate item -->
-                <div class="col-xs-12">
-                    <div class="item-block">
-                        <header>
-                            <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar-2.jpg" alt=""></a>
-                            <div class="hgroup">
-                                <h4>
-                                    <a href="resume-detail.html">Bikesh Soltanian</a>
-                                    <select class="form-control selectpicker label-style">
-                                        <option data-content="<span class='label label-default'>New</span>">New</option>
-                                        <option data-content="<span class='label label-warning'>Contacted</span>" selected>Contacted</option>
-                                        <option data-content="<span class='label label-info'>Interviewed</span>">Interviewed</option>
-                                        <option data-content="<span class='label label-success'>Hired</span>">Hired</option>
-                                        <option data-content="<span class='label label-danger'>Archived</span>">Archived</option>
-                                    </select>
-                                </h4>
-                                <h5>Java developer</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Fairfield, IA</span>
-                                <span class="rate">$60 per hour</span>
-                            </div>
-                        </header>
-
-                        <footer>
-                            <div class="status"><strong>Applied on:</strong> July 16, 2016</div>
-
-                            <div class="action-btn">
-                                <a class="btn btn-xs btn-gray" href="#">Download CV</a>
-                                <a class="btn btn-xs btn-gray" data-toggle="modal" data-target="#modal-contact" href="#">Contact</a>
-                                <a class="btn btn-xs btn-danger" href="#">Delete</a>
-                            </div>
-                        </footer>
-                    </div>
-                </div>
-                <!-- END Candidate item -->
-
-
-                <!-- Candidate item -->
-                <div class="col-xs-12">
-                    <div class="item-block">
-                        <header>
-                            <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar-4.jpg" alt=""></a>
-                            <div class="hgroup">
-                                <h4>
-                                    <a href="resume-detail.html">Chris Hernandeziyan</a>
-                                    <select class="form-control selectpicker label-style">
-                                        <option data-content="<span class='label label-default'>New</span>">New</option>
-                                        <option data-content="<span class='label label-warning'>Contacted</span>">Contacted</option>
-                                        <option data-content="<span class='label label-info'>Interviewed</span>" selected>Interviewed</option>
-                                        <option data-content="<span class='label label-success'>Hired</span>">Hired</option>
-                                        <option data-content="<span class='label label-danger'>Archived</span>">Archived</option>
-                                    </select>
-                                </h4>
-                                <h5>Front-end developer</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Seattle, WA</span>
-                                <span class="rate">$50 per hour</span>
-                            </div>
-                        </header>
-
-                        <footer>
-                            <div class="status"><strong>Applied on:</strong> July 16, 2016</div>
-
-                            <div class="action-btn">
-                                <a class="btn btn-xs btn-gray" href="#">Download CV</a>
-                                <a class="btn btn-xs btn-gray" data-toggle="modal" data-target="#modal-contact" href="#">Contact</a>
-                                <a class="btn btn-xs btn-danger" href="#">Delete</a>
-                            </div>
-                        </footer>
-                    </div>
-                </div>
-                <!-- END Candidate item -->
-
-
-                <!-- Candidate item -->
-                <div class="col-xs-12">
-                    <div class="item-block">
-                        <header>
-                            <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar-3.jpg" alt=""></a>
-                            <div class="hgroup">
-                                <h4>
-                                    <a href="resume-detail.html">Maryam Amiri</a>
-                                    <select class="form-control selectpicker label-style">
-                                        <option data-content="<span class='label label-default'>New</span>">New</option>
-                                        <option data-content="<span class='label label-warning'>Contacted</span>">Contacted</option>
-                                        <option data-content="<span class='label label-info'>Interviewed</span>">Interviewed</option>
-                                        <option data-content="<span class='label label-success'>Hired</span>" selected>Hired</option>
-                                        <option data-content="<span class='label label-danger'>Archived</span>">Archived</option>
-                                    </select>
-                                </h4>
-                                <h5>Javascript developer</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Fremont, CA</span>
-                                <span class="rate">$70 per hour</span>
-                            </div>
-                        </header>
-
-                        <footer>
-                            <div class="status"><strong>Applied on:</strong> July 16, 2016</div>
-
-                            <div class="action-btn">
-                                <a class="btn btn-xs btn-gray" href="#">Download CV</a>
-                                <a class="btn btn-xs btn-gray" data-toggle="modal" data-target="#modal-contact" href="#">Contact</a>
-                                <a class="btn btn-xs btn-danger" href="#">Delete</a>
-                            </div>
-                        </footer>
-                    </div>
-                </div>
-                <!-- END Candidate item -->
-
 
             </div>
         </div>
