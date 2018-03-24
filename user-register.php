@@ -1,79 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Post a job position or create your online resume by TheJobs!">
-    <meta name="keywords" content="">
+<?php
+session_start();
+if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
+    header('location:homepage.php');
+} else {
+    include 'scriptphp/connectDB.php';
 
-    <title>TheJobs - Register</title>
+    if (isset($_POST['user_signup'])) {
+        // Vérification des identifiants
+        if(!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['type'])){
+            $req = $pdo->prepare('INSERT INTO user_login(username, password, type) VALUES (?,?,?)');
+            if ($req->execute([$_POST['username'], $_POST['password'], $_POST['type']])) {
+                ?>
+                <div class="alert alert-success" role="alert">
+                    <strong>Well done ! Welcome <?php echo $_POST['username']; ?> ! </strong>
+                </div>
+                <meta http-equiv="refresh" content="1;url=user-login.php"/>
+                <?php
+            } elseif ($req->errorCode() == 23000) {
+                ?>
+                <div class="alert alert-warning" role="alert">
+                    <strong>Warning!</strong> This username has already existed. Please to contact the admin for
+                    support.
+                </div>
+                <?php
+            }
+        } else {
+            ?>
+            <div class="alert alert-warning" role="alert">
+                <strong>Warning!</strong> Please enter valid values.
+            </div>
+            <?php
+        }
+    }
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Post a job position or create your online resume by TheJobs!">
+        <meta name="keywords" content="">
 
-    <!-- Styles -->
-    <link href="assets/css/app.min.css" rel="stylesheet">
-    <link href="assets/css/thejobs.css" rel="stylesheet">
-    <link href="assets/css/custom.css" rel="stylesheet">
+        <title>HireMe by Tom - Register</title>
 
-    <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+        <!-- Styles -->
+        <link href="assets/css/app.min.css" rel="stylesheet">
+        <link href="assets/css/thejobs.css" rel="stylesheet">
+        <link href="assets/css/custom.css" rel="stylesheet">
 
-    <!-- Favicons -->
-    <link rel="icon" href="assets/img/favicon.ico">
-  </head>
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700'
+              rel='stylesheet' type='text/css'>
 
-  <body class="login-page">
+        <!-- Favicons -->
+        <link rel="icon" href="assets/img/favicon.ico">
+    </head>
+
+    <body class="login-page">
 
 
     <main>
 
-      <div class="login-block">
-        <img src="assets/img/logo.png" alt="">
-        <h1>Log into your account</h1>
+        <div class="login-block">
+            <img src="assets/img/logo.png" alt="">
+            <h1>Sign up your account</h1>
 
-        <form action="#">
+            <form method="POST" action="user-register.php">
 
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="ti-user"></i></span>
-              <input type="text" class="form-control" placeholder="Your name">
-            </div>
-          </div>
-          
-          <hr class="hr-xs">
+                <h5>Who are you ?</h5>
+                <div class="radio">
+                    <input type="radio" name="type" id="applicant" value="applicant">
+                    <label for="applicant">Applicant</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="type" id="recruiter" value="recruiter">
+                    <label for="recruiter">Recruiter</label>
+                </div>
+                <hr class="hr-xs">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="ti-user"></i></span>
+                        <input name="username" type="text" class="form-control" placeholder="Your username">
+                    </div>
+                </div>
 
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="ti-email"></i></span>
-              <input type="text" class="form-control" placeholder="Your email address">
-            </div>
-          </div>
-          
-          <hr class="hr-xs">
+                <hr class="hr-xs">
 
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="ti-unlock"></i></span>
-              <input type="password" class="form-control" placeholder="Choose a password">
-            </div>
-          </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="ti-unlock"></i></span>
+                        <input name="password" type="password" class="form-control" placeholder="Choose a password">
+                    </div>
+                </div>
 
-          <button class="btn btn-primary btn-block" type="submit">Sign up</button>
+                <hr class="hr-xs">
 
-          <div class="login-footer">
-            <h6>Or register with</h6>
-            <ul class="social-icons">
-              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
-          </div>
+                <button name="user_signup" class="btn btn-primary btn-block" type="submit">Sign up</button>
 
-        </form>
-      </div>
+            </form>
+        </div>
 
-      <div class="login-links">
-          <p class="text-center">Already have an account? <a class="txt-brand" href="user-login.php">Login</a></p>
-      </div>
+        <div class="login-links">
+            <p class="text-center">Already have an account? <a class="txt-brand" href="user-login.php">Login</a></p>
+        </div>
 
     </main>
 
@@ -83,5 +112,6 @@
     <script src="assets/js/thejobs.js"></script>
     <script src="assets/js/custom.js"></script>
 
-  </body>
-</html>
+    </body>
+    </html>
+<?php } ?>

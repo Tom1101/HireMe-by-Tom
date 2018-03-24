@@ -24,7 +24,6 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" href="assets/img/favicon.ico">
 </head>
 
@@ -53,7 +52,7 @@ if(isset($_GET['id']))
 
 
 <!-- Page header -->
-<header class="page-header bg-img size-lg" style="background-image: url(../assets/img/bg-banner2.jpg)">
+<header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
     <div class="container">
         <div class="header-detail">
             <div class="hgroup">
@@ -97,7 +96,7 @@ if(isset($_GET['id']))
 
             <div class="button-group">
                 <div class="action-buttons">
-                    <a class="btn btn-success" href="job-apply.php">Apply now</a>
+                    <a class="btn btn-success" href="job-apply.php?id=<?php echo $data['id_job']; ?>">Apply now</a>
                 </div>
             </div>
 

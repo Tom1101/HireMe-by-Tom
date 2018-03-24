@@ -7,11 +7,11 @@
             <div class="col-xs-6 col-md-6">
             <h6>Company</h6>
             <ul class="footer-links">
-              <li><a href="page-about.html">About us</a></li>
-              <li><a href="page-typography.html">How it works</a></li>
-              <li><a href="page-faq.html">Help center</a></li>
-              <li><a href="page-typography.html">Privacy policy</a></li>
-              <li><a href="page-contact.html">Contact us</a></li>
+              <li><a href="page/page-about.html">About us</a></li>
+              <li><a href="page/page-typography.html">How it works</a></li>
+              <li><a href="page/page-faq.html">Help center</a></li>
+              <li><a href="page/page-typography.html">Privacy policy</a></li>
+              <li><a href="page/page-contact.html">Contact us</a></li>
             </ul>
           </div>
             <div class="col-sm-12 col-md-6">

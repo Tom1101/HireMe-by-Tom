@@ -10,7 +10,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Post a job position or create your online resume by TheJobs!">
+    <meta name="description" content="Post a job position or create your online resume by Hireme by Tom!">
     <meta name="keywords" content="">
 
     <title>HireMe by Tom - Add job</title>
@@ -36,10 +36,13 @@ include 'scriptphp/connectDB.php';
 if(isset($_POST['submit_button'])){
     if(!empty($_POST['title']) && !empty($_POST['company']) && !empty($_POST['description']) && !empty($_POST['url']) && !empty($_POST['location']) && !empty($_POST['hours']) && !empty($_POST['experience']) && !empty($_POST['position']) && !empty($_POST['salary']) && !empty($_POST['level'])) {
         if(is_numeric($_POST['hours']) && is_numeric($_POST['experience']) && is_numeric($_POST['salary'])) {
-            $req = $pdo->prepare('insert into job (title, company, description, url, location, workinghours, experience, position, salary, level) VALUES (?,?,?,?,?,?,?,?,?,?)');
-            if($req->execute([$_POST['title'],$_POST['company'],$_POST['description'],$_POST['url'],$_POST['location'],$_POST['hours'],$_POST['experience'],$_POST['position'],$_POST['salary'],$_POST['level']]))
+            $req = $pdo->prepare('insert into job (title, company, description, url, location, workinghours, experience, position, salary, level, id_user) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
+            if($req->execute([$_POST['title'],$_POST['company'],$_POST['description'],$_POST['url'],$_POST['location'],$_POST['hours'],$_POST['experience'],$_POST['position'],$_POST['salary'],$_POST['level'],$_SESSION['id_user']]))
             {
                        echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Well done ! Add Job Success ! </strong></div>";
+                ?>
+                <meta http-equiv="refresh" content="1;url=job-manage.php" />
+                <?php
             } else {
                 echo "<div class=\"alert alert-warning\" role=\"alert\"><strong>Warning!</strong> Please enter valid values.</div>";
             }
@@ -52,11 +55,11 @@ if(isset($_POST['submit_button'])){
 };
 
 if ($_SESSION['type'] == 'admin') {
-    include 'navbar_admin.php';
+    include 'scriptphp/navbar_admin.php';
 } elseif ($_SESSION['type'] == 'applicant') {
-    include 'navbar_applicant.php';
+    include 'scriptphp/navbar_applicant.php';
 } else {
-    include 'navbar_recruiter.php';
+    include 'scriptphp/navbar_recruiter.php';
 };
 
 ?>

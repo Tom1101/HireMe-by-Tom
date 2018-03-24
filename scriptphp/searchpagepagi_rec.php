@@ -6,7 +6,7 @@
  * Time: 15:24
  */
 if (isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
-    $result = $pdo->query('select count(id_job) as total from job where (concat(title,location,company) like "%'.$_POST['jobtitle'].'%")');
+    $result = $pdo->query('select count(id_user) as total from user_login where (concat(username) like "%'.$_POST['jobtitle'].'%") and type ="recruiter"');
     $row = $result->fetch();
     $total_records = $row['total'];
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -22,7 +22,7 @@ if (isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
 // Tìm Start
     $start = ($current_page - 1) * $limit;
 } else {
-    $result = $pdo->query('select count(id_job) as total from job');
+    $result = $pdo->query('select count(id_user) as total from user_login where type="recruiter"');
     $row = $result->fetch();
     $total_records = $row['total'];
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -40,7 +40,7 @@ if (isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
 };
 
 if(isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
-    $result = $pdo->query('SELECT * FROM job WHERE (concat(title,location,company) like "%'.$_POST['jobtitle'].'%") LIMIT ' . $start . ', ' . $limit . '');
+    $result = $pdo->query('SELECT *, (SELECT count(id_job) from job where job.id_user = user_login.id_user) as NumJob FROM user_login WHERE type="recruiter" and (concat(title,location,company) like "%'.$_POST['jobtitle'].'%") LIMIT ' . $start . ', ' . $limit . '');
 } else {
-    $result = $pdo->query('SELECT * FROM job LIMIT '.$start.', '.$limit.'');
+    $result = $pdo->query('SELECT *, (SELECT count(id_job) from job where job.id_user = user_login.id_user) as NumJob FROM user_login where type="recruiter" LIMIT '.$start.', '.$limit.'');
 };

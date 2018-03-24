@@ -41,7 +41,14 @@ if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_applicant.php';
 } else {
     include 'scriptphp/navbar_recruiter.php';
-}
+};
+
+
+if(isset($_GET['id'])){
+    $req = $pdo->query('select * from job where id_job = '.$_GET['id'].'');
+    if(($data = $req->fetch()) !== false)
+    {
+
 ?>
 <!-- END Navigation bar -->
 
@@ -55,16 +62,15 @@ if ($_SESSION['type'] == 'admin') {
         <hr>
 
         <!-- Job detail -->
-        <a class="item-block item-block-flat" href="job-detail.html">
+        <a class="item-block item-block-flat" href="job-detail.php?id=<?php echo $data['id_job']; ?>">
             <header>
-                <img src="assets/img/logo-google.jpg" alt="">
                 <div class="hgroup">
-                    <h4>Senior front-end developer</h4>
-                    <h5>Google</h5>
+                    <h4><?php echo $data['title']; ?></h4>
+                    <h5><?php echo $data['company']; ?></h5>
                 </div>
                 <div class="header-meta">
-                    <span class="location">Menlo park, CA</span>
-                    <time datetime="2016-03-10 20:00">34 min ago</time>
+                    <span class="location"><?php echo $data['location']; ?></span>
+                    <span class="label label-success"><?php echo $data['position']; }}?></span>
                 </div>
             </header>
         </a>
@@ -72,7 +78,6 @@ if ($_SESSION['type'] == 'admin') {
 
         <div class="button-group">
             <div class="action-buttons">
-                <a class="btn btn-gray" href="#sec-custom">Custom application</a>
                 <a class="btn btn-primary" href="#sec-resume">Apply with a resume</a>
             </div>
         </div>
@@ -95,144 +100,54 @@ if ($_SESSION['type'] == 'admin') {
                 <h2>Select a resume</h2>
                 <p>Applied for this job with one of your online available resumes</p>
             </header>
-
-
+            <?php
+            $req = $pdo->query('select * from resume where id_user = '.$_SESSION['id_user'].'');
+            foreach ($req as $data){
+            ?>
             <!-- Resume item -->
             <div class="item-block">
                 <header>
-                    <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar.jpg" alt=""></a>
                     <div class="hgroup">
-                        <h4><a href="resume-detail.html">John Doe</a></h4>
-                        <h5>Front-end developer</h5>
+                        <h4><a href="resume-detail.php"><?php echo $data['name']; ?></a></h4>
+                        <h5><?php echo $data['headline']; ?></h5>
                     </div>
                     <div class="header-meta">
-                        <span class="location">Menlo park, CA</span>
-                        <span class="rate">$55 per hour</span>
+                        <span class="location"><?php echo $data['location']; ?></span>
+                        <span class="rate">$<?php echo $data['salary']; ?> per hour</span>
                     </div>
                 </header>
 
                 <footer>
-                    <p class="status"><strong>Updated on:</strong> March 10, 2016</p>
-
                     <div class="action-btn">
-                        <a class="btn btn-xs btn-gray" href="#">Edit</a>
-                        <a class="btn btn-xs btn-success" href="#">Select</a>
+                        <form method="POST" action="resume-edit.php">
+                            <input name="id" type="hidden" value="<?php echo $data['id_resume']; ?>">
+                        <button class="btn btn-xs btn-gray" href="resume-edit.php">Edit</button>
+                        <input type="button" value="select" class="btn btn-outline btn-xs btn-success" onclick="ChangeUrl('select','job-apply.php?id=<?php echo $_GET['id']; ?>&resume=<?php echo $data['id_resume'];?>#sec-resume');">
+                        </form>
                     </div>
                 </footer>
             </div>
             <!-- END Resume item -->
-
-
-            <!-- Resume item -->
-            <div class="item-block">
-                <header>
-                    <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar.jpg" alt=""></a>
-                    <div class="hgroup">
-                        <h4><a href="resume-detail.html">John Doe</a></h4>
-                        <h5>Full stack developer</h5>
-                    </div>
-                    <div class="header-meta">
-                        <span class="location">Menlo park, CA</span>
-                        <span class="rate">$85 per hour</span>
-                    </div>
-                </header>
-
-                <footer>
-                    <p class="status"><strong>Updated on:</strong> March 03, 2016</p>
-
-                    <div class="action-btn">
-                        <a class="btn btn-xs btn-gray" href="#">Edit</a>
-                        <a class="btn btn-xs btn-success" href="#">Select</a>
-                    </div>
-                </footer>
-            </div>
-            <!-- END Resume item -->
-
-
-            <!-- Resume item -->
-            <div class="item-block">
-                <header>
-                    <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar.jpg" alt=""></a>
-                    <div class="hgroup">
-                        <h4><a href="resume-detail.html">John Doe</a></h4>
-                        <h5>PHP developer <span class="label label-info">Hidden</span></h5>
-                    </div>
-                    <div class="header-meta">
-                        <span class="location">Menlo park, CA</span>
-                        <span class="rate">$60 per hour</span>
-                    </div>
-                </header>
-
-                <footer>
-                    <p class="status"><strong>Updated on:</strong> Feb 27, 2016</p>
-
-                    <div class="action-btn">
-                        <a class="btn btn-xs btn-gray" href="#">Edit</a>
-                        <a class="btn btn-xs btn-success" href="#">Select</a>
-                    </div>
-                </footer>
-            </div>
-            <!-- END Resume item -->
-
+            <?php }
+            if(isset($_GET['resume'])){
+                $req = $pdo->query('update resume set id_job = '.$_GET['id'].' where id_resume = '.$_GET['resume'].'');
+                echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Well done ! Apply Job Success ! </strong></div>";
+            };
+            ?>
             <br>
-
             <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <a class="btn btn-block btn-primary" href="resume-add.html">Add new resume</a>
+                <div class="col-xs-12 col-md-4">
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <a class="btn btn-block btn-success" onclick="location.reload();">Apply to this job</a>
+                </div>
+                <div class="col-xs-12 col-md-4">
                 </div>
             </div>
 
         </div>
     </section>
     <!-- END Apply with resume -->
-
-
-    <!-- Custom application -->
-    <section id="sec-custom" class="bg-alt">
-        <div class="container">
-            <header class="section-header">
-                <span>Custom application</span>
-                <h2>Apply now</h2>
-                <p>Apply for this job with a custom application.</p>
-            </header>
-
-            <form>
-                <div class="row">
-                    <div class="form-group col-xs-12 col-md-6">
-                        <input type="text" class="form-control input-lg" placeholder="Name">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-md-6">
-                        <input type="email" class="form-control input-lg" placeholder="Email">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <textarea class="form-control" rows="5" placeholder="Message"></textarea>
-                </div>
-
-                <div class="form-group">
-
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-6 col-md-3">
-                        <div class="upload-button upload-button-block">
-                            <button class="btn btn-block btn-success">Attach your CV</button>
-                            <input name="cv" type="file">
-                        </div>
-                    </div>
-
-                    <div class="col-xs-6 col-md-3">
-                        <button type="submit" class="btn btn-block btn-primary">Submit application</button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-    </section>
-    <!-- END Custom application -->
-
 
 </main>
 <!-- END Main container -->
@@ -252,6 +167,15 @@ if ($_SESSION['type'] == 'admin') {
 <script src="assets/vendors/summernote/summernote.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
-
+<script type="text/javascript">
+    function ChangeUrl(title, url) {
+        if (typeof (history.pushState) != "undefined") {
+            var obj = { Title: title, Url: url };
+            history.pushState(obj, obj.Title, obj.Url);
+        } else {
+            alert("Browser does not support HTML5.");
+        }
+    }
+</script>
 </body>
 </html>

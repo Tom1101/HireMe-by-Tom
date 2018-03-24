@@ -23,7 +23,6 @@
             </a>
 
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="profil.php">Profil</a></li>
                 <li><a href="user-logout.php">Logout</a></li>
             </ul>
           </div>
@@ -42,9 +41,11 @@
                 <li><a href="job-list-3.php">Browse jobs</a></li>
                 <li><a href="job-add.php">Post a job</a></li>
                 <li><a href="job-manage.php">Manage jobs</a></li>
-                <li><a href="job-candidates.php">Candidates</a></li>
             </ul>
           </li>
+            <li>
+                <a href="resume-list.php">Browse Resumes</a>
+            </li>
           <!--<li>
               <a href="company-list.php">Company</a>
           </li>-->

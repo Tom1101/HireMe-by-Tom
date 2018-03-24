@@ -25,7 +25,6 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
     <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" href="assets/img/favicon.ico">
   </head>
 
@@ -65,7 +64,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
           <h2>We offer <mark>1,259</mark> job vacancies right now!</h2>
           <h5 class="font-alt">Find your desire one in a minute</h5>
           <br><br><br>
-          <form class="header-job-search">
+          <form class="header-job-search" action="user-login.php">
             <div class="input-keyword">
               <input type="text" class="form-control" placeholder="Job title, skills, or company">
             </div>
@@ -98,7 +97,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
 
             <!-- Job item -->
             <div class="col-xs-12">
-              <a class="item-block" href="job-detail.php">
+              <a class="item-block" href="user-login.php">
                 <header>
                   <div class="hgroup">
                     <h4>Senior front-end developer</h4>
@@ -112,13 +111,58 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
               </a>
             </div>
             <!-- END Job item -->
+              <!-- Job item -->
+              <div class="col-xs-12">
+                  <a class="item-block" href="user-login.php">
+                      <header>
+                          <div class="hgroup">
+                              <h4>Senior front-end developer</h4>
+                              <h5>Google</h5>
+                          </div>
+                          <div class="header-meta">
+                              <span class="location">Menlo park, CA</span>
+                              <span class="label label-success">Full-time</span>
+                          </div>
+                      </header>
+                  </a>
+              </div>
+              <!-- END Job item -->
+              <!-- Job item -->
+              <div class="col-xs-12">
+                  <a class="item-block" href="user-login.php">
+                      <header>
+                          <div class="hgroup">
+                              <h4>Senior front-end developer</h4>
+                              <h5>Google</h5>
+                          </div>
+                          <div class="header-meta">
+                              <span class="location">Menlo park, CA</span>
+                              <span class="label label-success">Full-time</span>
+                          </div>
+                      </header>
+                  </a>
+              </div>
+              <!-- END Job item -->
+              <!-- Job item -->
+              <div class="col-xs-12">
+                  <a class="item-block" href="user-login.php">
+                      <header>
+                          <div class="hgroup">
+                              <h4>Senior front-end developer</h4>
+                              <h5>Google</h5>
+                          </div>
+                          <div class="header-meta">
+                              <span class="location">Menlo park, CA</span>
+                              <span class="label label-success">Full-time</span>
+                          </div>
+                      </header>
+                  </a>
+              </div>
+              <!-- END Job item -->
           </div>
 
           <br><br>
-          <p class="text-center"><a class="btn btn-info" href="#" onclick="showmessage('alertlogin')">Browse all jobs</a></p>
-            <div style="display: none;" id="alertlogin" class="alert alert-warning" role="alert">
-                <strong>Warning!</strong> Please login to use this options. Thank you !
-            </div>
+          <p class="text-center"><a class="btn btn-info" href="user-login.php">Browse all jobs</a></p>
         </div>
       </section>
       <!-- END Recent jobs -->
@@ -175,7 +219,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
 
     </main>
     <!-- END Main container -->
-    <?php include 'footer.php';?>
+    <?php include 'scriptphp/footer.php';?>
     <!-- Back to top button -->
     <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
     <!-- END Back to top button -->

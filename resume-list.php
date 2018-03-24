@@ -21,8 +21,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700'
-          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -33,13 +32,17 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
+
+include 'scriptphp/connectDB.php';
+include 'scriptphp/searchpagepagi_resume.php';
 if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
     include 'scriptphp/navbar_applicant.php';
 } else {
     include 'scriptphp/navbar_recruiter.php';
-}
+};
+
 ?>
 <!-- END Navigation bar -->
 
@@ -52,11 +55,11 @@ if ($_SESSION['type'] == 'admin') {
     </div>
 
     <div class="container">
-        <form action="#">
+        <form method="POST" action="resume-list.php">
 
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12">
-                    <input type="text" class="form-control" placeholder="Keyword: name, skills, or tags">
+                    <input name="jobtitle" type="text" class="form-control" placeholder="Keyword: name, head line, location or salary">
                 </div>
             </div>
 
@@ -80,245 +83,70 @@ if ($_SESSION['type'] == 'admin') {
         <div class="container">
             <div class="row">
                 <!-- Resume detail -->
-                <div class="col-xs-12">
-                    <a class="item-block" href="resume-detail.html">
+                <?php while ($data = $result->fetch()) { ?>
+                <div class="col-xs-12 col-md-6">
+                    <a class="item-block" href="resume-detail.php?id=<?php echo $data['id_resume']; ?>">
                         <header>
-                            <img class="resume-avatar" src="assets/img/avatar.jpg" alt="">
-                            <div class="hgroup">
-                                <h4>John Doe</h4>
-                                <h5>Front-end developer</h5>
-                            </div>
+                            <center><div class="hgroup">
+                                <h4><?php echo $data['name']; ?></h4>
+                                <h5><?php echo $data['headline']; ?></h5>
+                            </div></center>
                         </header>
 
                         <div class="item-body">
-                            <p>20+ years of experience working on front-end development for major companies. I develop
-                                well-designed, accessible, and standards-based web sites and applications. Highly
-                                effective communicator and team leader with a proven track record of delivering quality
-                                work on time and within budget working as a remote employee. Experience and success in
-                                both agency and major corporate environments.</p>
-
-                            <div class="tag-list">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>Bootstrap</span>
-                                <span>Wordpress</span>
-                            </div>
+                            <p><?php echo $data['description']; ?></p>
                         </div>
 
                         <footer>
-                            <ul class="details cols-3">
+                            <ul class="details cols-2">
                                 <li>
                                     <i class="fa fa-map-marker"></i>
-                                    <span>Menlo Park, CA</span>
+                                    <span><?php echo $data['location']; ?></span>
                                 </li>
 
                                 <li>
                                     <i class="fa fa-money"></i>
-                                    <span>$55 / hour</span>
-                                </li>
-
-                                <li>
-                                    <i class="fa fa-certificate"></i>
-                                    <span>Master of Computer Science</span>
+                                    <span>$<?php echo $data['salary']; ?> / hour</span>
                                 </li>
                             </ul>
                         </footer>
                     </a>
                 </div>
+                <?php } ?>
                 <!-- END Resume detail -->
             </div>
-
-            <div class="row">
-                <!-- Resume detail -->
-                <div class="col-sm-12 col-md-6">
-                    <a class="item-block" href="resume-detail.html">
-                        <header>
-                            <img class="resume-avatar" src="assets/img/avatar-1.jpg" alt="">
-                            <div class="hgroup">
-                                <h4>Bikesh Soltanian</h4>
-                                <h5>Java developer</h5>
-                            </div>
-                        </header>
-
-                        <div class="item-body">
-                            <p>I develop well-designed, accessible, and standards-based web sites and applications.
-                                Highly effective communicator and team leader with a proven track record of delivering
-                                quality work on time and within budget working as a remote employee.</p>
-
-                            <div class="tag-list">
-                                <span>J2EE</span>
-                                <span>J2SE</span>
-                                <span>Android</span>
-                            </div>
-                        </div>
-
-                        <footer>
-                            <ul class="details cols-2">
-                                <li>
-                                    <i class="fa fa-map-marker"></i>
-                                    <span>Fairfield, IA</span>
-                                </li>
-
-                                <li>
-                                    <i class="fa fa-money"></i>
-                                    <span>$60 / hour</span>
-                                </li>
-                            </ul>
-                        </footer>
-                    </a>
-                </div>
-                <!-- END Resume detail -->
+        </div>
 
 
-                <!-- Resume detail -->
-                <div class="col-sm-12 col-md-6">
-                    <a class="item-block" href="resume-detail.html">
-                        <header>
-                            <img class="resume-avatar" src="assets/img/avatar-2.jpg" alt="">
-                            <div class="hgroup">
-                                <h4>Chris Hernandeziyan</h4>
-                                <h5>.Net developer</h5>
-                            </div>
-                        </header>
+        <!-- Page navigation -->
+        <nav class="text-center">
+            <ul class="pagination">
+                <?php
 
-                        <div class="item-body">
-                            <p>I develop well-designed, accessible, and standards-based web sites and applications.
-                                Highly effective communicator and team leader with a proven track record of delivering
-                                quality work on time and within budget working as a remote employee.</p>
+                // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                if ($current_page > 1 && $total_page > 1) {
+                    echo '<li><a href="resume-list.php?page=' . ($current_page - 1) . '"><i class="ti-angle-left"></i></a></li> ';
+                }
 
-                            <div class="tag-list">
-                                <span>VB.Net</span>
-                                <span>C#</span>
-                                <span>WPF</span>
-                                <span>ASP.Net</span>
-                                <span>MVC.Net</span>
-                            </div>
-                        </div>
+                // Lặp khoảng giữa
+                for ($i = 1; $i <= $total_page; $i++) {
+                    // Nếu là trang hiện tại thì hiển thị thẻ span
+                    // ngược lại hiển thị thẻ a
+                    if ($i == $current_page) {
+                        echo '<li class="active"><span>' . $i . '</span></li> ';
+                    } else {
+                        echo '<li><a href="resume-list.php?page=' . $i . '">' . $i . '</a></li> ';
+                    }
+                }
 
-                        <footer>
-                            <ul class="details cols-2">
-                                <li>
-                                    <i class="fa fa-map-marker"></i>
-                                    <span>Seattle, WA</span>
-                                </li>
-
-                                <li>
-                                    <i class="fa fa-money"></i>
-                                    <span>$50 / hour</span>
-                                </li>
-                            </ul>
-                        </footer>
-                    </a>
-                </div>
-                <!-- END Resume detail -->
-            </div>
-
-            <div class="row">
-                <!-- Resume detail -->
-                <div class="col-sm-12 col-md-6">
-                    <a class="item-block" href="resume-detail.html">
-                        <header>
-                            <img class="resume-avatar" src="assets/img/avatar-3.jpg" alt="">
-                            <div class="hgroup">
-                                <h4>Mary Amiri</h4>
-                                <h5>Quality assurance</h5>
-                            </div>
-                        </header>
-
-                        <div class="item-body">
-                            <p>I develop well-designed, accessible, and standards-based web sites and applications.
-                                Highly effective communicator and team leader with a proven track record of delivering
-                                quality work on time and within budget working as a remote employee.</p>
-
-                            <div class="tag-list">
-                                <span>Testcase</span>
-                                <span>Unit test</span>
-                                <span>jUnit</span>
-                                <span>Git</span>
-                            </div>
-                        </div>
-
-                        <footer>
-                            <ul class="details cols-2">
-                                <li>
-                                    <i class="fa fa-map-marker"></i>
-                                    <span>Fremont, CA</span>
-                                </li>
-
-                                <li>
-                                    <i class="fa fa-money"></i>
-                                    <span>$70 / hour</span>
-                                </li>
-                            </ul>
-                        </footer>
-                    </a>
-                </div>
-                <!-- END Resume detail -->
-
-
-                <!-- Resume detail -->
-                <div class="col-sm-12 col-md-6">
-                    <a class="item-block" href="resume-detail.html">
-                        <header>
-                            <img class="resume-avatar" src="assets/img/avatar-4.jpg" alt="">
-                            <div class="hgroup">
-                                <h4>Sarah Luizgarden</h4>
-                                <h5>UI/UX developer</h5>
-                            </div>
-                        </header>
-
-                        <div class="item-body">
-                            <p>I develop well-designed, accessible, and standards-based web sites and applications.
-                                Highly effective communicator and team leader with a proven track record of delivering
-                                quality work on time and within budget working as a remote employee.</p>
-
-                            <div class="tag-list">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>Bootstrap</span>
-                                <span>Photoshop</span>
-                            </div>
-                        </div>
-
-                        <footer>
-                            <ul class="details cols-2">
-                                <li>
-                                    <i class="fa fa-map-marker"></i>
-                                    <span>Columbus, OH</span>
-                                </li>
-
-                                <li>
-                                    <i class="fa fa-money"></i>
-                                    <span>$45 / hour</span>
-                                </li>
-                            </ul>
-                        </footer>
-                    </a>
-                </div>
-                <!-- END Resume detail -->
-            </div>
-
-
-            <!-- Page navigation -->
-            <nav class="text-center">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <i class="ti-angle-left"></i>
-                        </a>
-                    </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <i class="ti-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- END Page navigation -->
+                // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                if ($current_page < $total_page && $total_page > 1) {
+                    echo '<li><a href="resume-list.php?page=' . ($current_page - 1) . '"><i class="ti-angle-right"></i></a></li> ';
+                }
+                ?>
+            </ul>
+        </nav>
+        <!-- END Page navigation -->
 
 
         </div>
@@ -328,7 +156,7 @@ if ($_SESSION['type'] == 'admin') {
 
 
 <!-- Site footer -->
-<?php include 'footer.php' ?>
+<?php include 'scriptphp/footer.php' ?>
 <!-- END Site footer -->
 
 

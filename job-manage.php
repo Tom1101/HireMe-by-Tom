@@ -21,11 +21,9 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700'
-          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" href="assets/img/favicon.ico">
 </head>
 
@@ -37,10 +35,15 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 include 'scriptphp/connectDB.php';
 
-$conn = mysqli_connect('localhost:8889', 'tom', '@tom', 'hiremebytom');
+if(!isset($_GET['id_user'])){
+    $userid = $_SESSION['id_user'];
+} else {
+    $userid = $_GET['id_user'];
+};
 
-$result = mysqli_query($conn, 'select count(id_job) as total from job');
-$row = mysqli_fetch_assoc($result);
+
+$result = $pdo->query('select count(id_job) as total from job where id_user = '.$userid.'');
+$row = $result->fetch();
 $total_records = $row['total'];
 
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -60,7 +63,7 @@ else if ($current_page < 1){
 // Tìm Start
 $start = ($current_page - 1) * $limit;
 
-$result = mysqli_query($conn, "SELECT * FROM job LIMIT $start, $limit");
+$result = $pdo->query("SELECT * FROM job where id_user = $userid LIMIT $start, $limit");
 
 if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_admin.php';
@@ -88,61 +91,87 @@ if ($_SESSION['type'] == 'admin') {
 <main>
     <section class="no-padding-top bg-alt">
         <div class="container">
-            <nav class="row">
-                <table class="table table-bordered table-striped">
-                    <?php  while ($data = mysqli_fetch_assoc($result)){ ?>
+                    <?php  foreach ($result as $data){ ?>
                         <!-- Job detail -->
-                        <tr id="page1">
                             <div class="col-xs-12">
                                 <div class="item-block">
                                     <header>
                                         <div class="hgroup">
-                                            <h4><?php echo $data['title']; ?></h4>
+                                            <a href="job-detail.php?id=<?php echo $data['id_job']; ?>"><h4><?php echo $data['title']; ?></h4></a>
                                             <h5><?php echo $data['company']; ?></h5>
+                                            <br>
+                                            <form method="POST" action="job-candidates.php">
+                                                <input name="id" type="hidden" value="<?php echo $data['id_job']; ?>">
+                                                <button class="btn btn-xs btn-success" type="submit">View Applicants</button>
+                                            </form>
                                         </div>
                                         <div class="header-meta">
                                             <span class="location"><?php echo $data['location']; ?></span>
                                             <span class="label label-success"><?php echo $data['position']; ?></span>
                                         </div>
-                                    </header>
-
+                                    </header></a>
                                     <footer>
                                         <div class="action-btn">
-                                            <a class="btn btn-xs btn-gray" href="job-edit.php?id=<?php echo $data['id_job']; ?>">Edit</a>
-                                            <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" data-id="job-delete.php?id=<?php echo $data['id_job'];?>">Delete</a>
+                                        <form method="POST" action="job-edit.php">
+                                            <input name="id" type="hidden" value="<?php echo $data['id_job']; ?>">
+                                            <button class="btn btn-xs btn-gray" type="submit">Edit</button>
+                                            <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal"
+                                               data-id="<?php echo $data['id_job']; ?>">Delete</a>
+                                        </form>
                                         </div>
                                     </footer>
                                 </div>
                             </div>
-                        </tr>
                         <!-- END Job detail -->
                     <?php } ?>
-                </table>
                 <nav class="text-center">
                     <ul class="pagination">
                     <?php
-
-                    // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-                    if ($current_page > 1 && $total_page > 1){
-                        echo '<li><a href="job-manage.php?page='.($current_page-1).'"><i class="ti-angle-left"></i></a></li> ';
-                    }
-
-                    // Lặp khoảng giữa
-                    for ($i = 1; $i <= $total_page; $i++){
-                        // Nếu là trang hiện tại thì hiển thị thẻ span
-                        // ngược lại hiển thị thẻ a
-                        if ($i == $current_page){
-                            echo '<li class="active"><span>'.$i.'</span></li> ';
+                    if(!isset($_GET['id_user'])){
+                        // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                        if ($current_page > 1 && $total_page > 1){
+                            echo '<li><a href="job-manage.php?page='.($current_page-1).'"><i class="ti-angle-left"></i></a></li> ';
                         }
-                        else{
-                            echo '<li><a href="job-manage.php?page='.$i.'">'.$i.'</a></li> ';
-                        }
-                    }
 
-                    // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
-                    if ($current_page < $total_page && $total_page > 1){
-                        echo '<li><a href="job-manage.php?page='.($current_page-1).'"><i class="ti-angle-right"></i></a></li> ';
-                    }
+                        // Lặp khoảng giữa
+                        for ($i = 1; $i <= $total_page; $i++){
+                            // Nếu là trang hiện tại thì hiển thị thẻ span
+                            // ngược lại hiển thị thẻ a
+                            if ($i == $current_page){
+                                echo '<li class="active"><span>'.$i.'</span></li> ';
+                            }
+                            else{
+                                echo '<li><a href="job-manage.php?page='.$i.'">'.$i.'</a></li> ';
+                            }
+                        }
+
+                        // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                        if ($current_page < $total_page && $total_page > 1){
+                            echo '<li><a href="job-manage.php?page='.($current_page-1).'"><i class="ti-angle-right"></i></a></li> ';
+                        }
+                    } else {
+                        // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                        if ($current_page > 1 && $total_page > 1){
+                            echo '<li><a href="job-manage.php?id_user='.$_GET['id_user'].'&page='.($current_page-1).'"><i class="ti-angle-left"></i></a></li> ';
+                        }
+
+                        // Lặp khoảng giữa
+                        for ($i = 1; $i <= $total_page; $i++){
+                            // Nếu là trang hiện tại thì hiển thị thẻ span
+                            // ngược lại hiển thị thẻ a
+                            if ($i == $current_page){
+                                echo '<li class="active"><span>'.$i.'</span></li> ';
+                            }
+                            else{
+                                echo '<li><a href="job-manage.php?id_user='.$_GET['id_user'].'&page='.$i.'">'.$i.'</a></li> ';
+                            }
+                        }
+
+                        // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                        if ($current_page < $total_page && $total_page > 1){
+                            echo '<li><a href="job-manage.php?id_user='.$_GET['id_user'].'&page='.($current_page-1).'"><i class="ti-angle-right"></i></a></li> ';
+                        }
+                    };
                     ?>
                     </ul>
                 </nav>
@@ -167,10 +196,13 @@ if ($_SESSION['type'] == 'admin') {
             </div>
 
             <!-- Modal footer -->
-            <div class="modal-footer center">
-                <a id="hrefdelete" href="x" type="button" class="btn btn-success">Yes</a>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-            </div>
+            <form method="POST" action="job-delete.php">
+                <div class="modal-footer center">
+                    <input id="hrefdelete" name="id" type="hidden" value="x">
+                    <button type="submit" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -192,7 +224,7 @@ if ($_SESSION['type'] == 'admin') {
     $('#myModal').on('show.bs.modal', function (e) {
         var myRoomNumber = $(e.relatedTarget).attr('data-id');
         $(this).find('.roomNumber').text(myRoomNumber);
-        $("#hrefdelete").attr("href", myRoomNumber);
+        $("#hrefdelete").attr("value", myRoomNumber);
     });
 </script>
 </body>

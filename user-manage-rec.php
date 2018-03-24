@@ -13,7 +13,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <meta name="description" content="Post a job position or create your online resume by TheJobs!">
     <meta name="keywords" content="">
 
-    <title>HireMe by Tom - Job list</title>
+    <title>HireMe by Tom - Recruiter Manage</title>
 
     <!-- Styles -->
     <link href="assets/css/app.min.css" rel="stylesheet">
@@ -21,11 +21,9 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700'
-          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" href="assets/img/favicon.ico">
 </head>
 
@@ -35,20 +33,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 <?php
 include 'scriptphp/connectDB.php';
 
-
-$conn = mysqli_connect('localhost:8889', 'tom', '@tom', 'hiremebytom');
-
-include 'scriptphp/searchpagepagi.php';
-
-if(isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
-    $result = mysqli_query($conn, 'SELECT * FROM job WHERE title = "'.$_POST['jobtitle'].'" LIMIT ' . $start . ', ' . $limit . '');
-} elseif(isset($_POST['joblocation']) && !empty($_POST['joblocation'])) {
-    $result = mysqli_query($conn, 'SELECT * FROM job WHERE location = "'.$_POST['joblocation'].'" LIMIT ' . $start . ', ' . $limit . '');
-} elseif(isset($_POST['jobcompany']) && !empty($_POST['jobcompany'])) {
-    $result = mysqli_query($conn, 'SELECT * FROM job WHERE company = "'.$_POST['jobcompany'].'" LIMIT ' . $start . ', ' . $limit . '');
-} else {
-    $result = mysqli_query($conn, 'SELECT * FROM job LIMIT '.$start.', '.$limit.'');
-}
+include 'scriptphp/searchpagepagi_rec.php';
 
 if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_admin.php';
@@ -67,22 +52,14 @@ if ($_SESSION['type'] == 'admin') {
 <!-- Page header -->
 <header class="page-header bg-img" style="background-image: url(assets/img/bg-banner1.jpg);">
     <div class="container page-name">
-        <h1 class="text-center">Finding jobs</h1>
-        <p class="lead text-center">Use following search box to find jobs that fits you better</p>
+        <h1 class="text-center">Browse Recruiters</h1>
     </div>
 
     <div class="container">
-        <form method="POST" action="job-search.php">
-            <h1 class="text-center">Search jobs</h1>
-            <p class="lead text-center">Please just search in one box !</p>
-            <div id="jobtitle" class=" searchbox form-group col-xs-4 col-sm-4">
-                <input name="jobtitle" type="text" class="form-control" placeholder="Keyword: job title">
-            </div>
-            <div id="joblocation" class=" searchbox form-group col-xs-4 col-sm-4">
-                <input name="joblocation" type="text" class="form-control" placeholder="Keyword: location">
-            </div>
-            <div id="jobcompany" class=" searchbox form-group col-xs-4 col-sm-4">
-                <input name="jobcompany" type="text" class="form-control" placeholder="Keyword: company">
+        <form method="POST" action="user-manage-rec.php">
+            <h1 class="text-center">Search Recruiter</h1>
+            <div id="jobtitle" class=" searchbox form-group col-xs-12 col-sm-12">
+                <input name="jobtitle" type="text" class="form-control" placeholder="Keyword: username">
             </div>
             <br>
             <div class="button-group">
@@ -103,28 +80,34 @@ if ($_SESSION['type'] == 'admin') {
 <main>
     <section class="no-padding-top bg-alt">
         <div class="container">
-            <div class="row item-blocks-connected">
-
-                <?php while ($data = mysqli_fetch_assoc($result)) { ?>
+                <?php foreach ($result as $data) { ?>
                     <!-- Job item -->
-                    <div class="col-xs-12">
-                        <a class="item-block" href="job-detail.php?id=<?php echo $data['id_job']; ?>">
+            <div class="col-xs-12">
+                <div class="item-block">
                             <header>
                                 <div class="hgroup">
-                                    <h4><?php echo $data['title']; ?></h4>
-                                    <h5><?php echo $data['company']; ?></h5>
+                                    <h4>Username: <?php echo $data['username']; ?></h4>
+                                    <h5>Password: <?php echo $data['password']; ?></h5>
                                 </div>
                                 <div class="header-meta">
-                                    <span class="location"><?php echo $data['location']; ?></span>
-                                    <span class="label label-success"><?php echo $data['position']; ?></span>
+                                    <span class="work">Number of jobs posted: <?php echo $data['NumJob']; ?></span>
                                 </div>
                             </header>
-                        </a>
+                        <footer>
+                            <div class="action-btn">
+                                <form method="GET" action="job-manage.php?id_user=">
+                                    <input name="id_user" type="hidden" value="<?php echo $data['id_user']; ?>">
+                                    <button class="btn btn-xs btn-gray" type="submit">View and Edit</button>
+                                    <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal"
+                                       data-id="<?php echo $data['id_user']; ?>">Block user</a>
+                                </form>
+                            </div>
+                        </footer>
                     </div>
                     <!-- END Job item -->
-                <?php } ?>
-            </div>
 
+            </div>
+                <?php } ?>
 
             <!-- Page navigation -->
             <nav class="text-center">
@@ -133,7 +116,7 @@ if ($_SESSION['type'] == 'admin') {
 
                     // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                     if ($current_page > 1 && $total_page > 1) {
-                        echo '<li><a href="job-search.php?page=' . ($current_page - 1) . '"><i class="ti-angle-left"></i></a></li> ';
+                        echo '<li><a href="user-manage-rec.php?page=' . ($current_page - 1) . '"><i class="ti-angle-left"></i></a></li> ';
                     }
 
                     // Lặp khoảng giữa
@@ -143,13 +126,13 @@ if ($_SESSION['type'] == 'admin') {
                         if ($i == $current_page) {
                             echo '<li class="active"><span>' . $i . '</span></li> ';
                         } else {
-                            echo '<li><a href="job-search.php?page=' . $i . '">' . $i . '</a></li> ';
+                            echo '<li><a href="user-manage-rec.php?page=' . $i . '">' . $i . '</a></li> ';
                         }
                     }
 
                     // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
                     if ($current_page < $total_page && $total_page > 1) {
-                        echo '<li><a href="job-search.php?page=' . ($current_page - 1) . '"><i class="ti-angle-right"></i></a></li> ';
+                        echo '<li><a href="user-manage-rec.php?page=' . ($current_page - 1) . '"><i class="ti-angle-right"></i></a></li> ';
                     }
                     ?>
                 </ul>
@@ -162,6 +145,33 @@ if ($_SESSION['type'] == 'admin') {
 </main>
 <!-- END Main container -->
 
+<!-- The Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deleting Job ?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Are you sure that you want to delete the job ?
+            </div>
+
+            <!-- Modal footer -->
+            <form method="POST" action="">
+                <div class="modal-footer center">
+                    <input id="hrefdelete" name="id" type="hidden" value="x">
+                    <button type="submit" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End The Modal -->
 
 <!-- Site footer -->
 <?php include 'scriptphp/footer.php' ?>
@@ -176,6 +186,13 @@ if ($_SESSION['type'] == 'admin') {
 <script src="assets/js/app.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
-
+<!--<script>
+    $(function() {
+        $('#searchselected').change(function(){
+            $('.searchbox').hide();
+            $('#' + $(this).val()).show();
+        });
+    });
+</script>-->
 </body>
 </html>

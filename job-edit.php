@@ -26,8 +26,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700'
-          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
     <link rel="icon" href="assets/img/favicon.ico">
@@ -43,7 +42,7 @@ if (isset($_POST['submit_button'])) {
     if (!empty($_POST['title']) && !empty($_POST['company']) && !empty($_POST['description']) && !empty($_POST['url']) && !empty($_POST['location']) && !empty($_POST['hours']) && !empty($_POST['experience']) && !empty($_POST['position']) && !empty($_POST['salary']) && !empty($_POST['level'])) {
         if (is_numeric($_POST['hours']) && is_numeric($_POST['experience']) && is_numeric($_POST['salary'])) {
             $req = $pdo->prepare('UPDATE job SET title=?, company = ?, description = ?, url = ?, location = ?, workinghours = ?, experience = ?, position = ?, salary = ?, level = ? WHERE id_job = ?');
-            if ($req->execute([$_POST['title'], $_POST['company'], $_POST['description'], $_POST['url'], $_POST['location'], $_POST['hours'], $_POST['experience'], $_POST['position'], $_POST['salary'], $_POST['level'],$_GET['id']])) {
+            if ($req->execute([$_POST['title'], $_POST['company'], $_POST['description'], $_POST['url'], $_POST['location'], $_POST['hours'], $_POST['experience'], $_POST['position'], $_POST['salary'], $_POST['level'],$_POST['id']])) {
                 echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Well done ! Edit Job Success ! </strong></div>";
             } else {
                 echo "<div class=\"alert alert-warning\" role=\"alert\"><strong>Warning!</strong> Please enter valid values...</div>";
@@ -64,9 +63,9 @@ if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_recruiter.php';
 };
 
-if (isset($_GET['id'])) {
+if (isset($_POST['id'])) {
     $req = $pdo->prepare('select * from job where id_job = ?');
-    $req->execute([$_GET['id']]);
+    $req->execute([$_POST['id']]);
     if (($data = $req->fetch()) !== false) {
         ?>
 
@@ -75,14 +74,13 @@ if (isset($_GET['id'])) {
         <!-- Page header -->
         <header class="page-header bg-img size-lg" style="background-image: url(assets/img/bg-banner1.jpg)">
             <div class="container page-name">
-                <h1 class="text-center">Add a new job</h1>
-                <p class="lead text-center">Create a new vacancy for your company and put it online.</p>
+                <h1 class="text-center">Edit a new job</h1>
+                <p class="lead text-center">Edit a new vacancy for your company and put it online.</p>
             </div>
 
             <form method="POST" action="job-edit.php?id=<?php echo $data['id_job']; ?>">
                 <div class="container">
                     <div class="row">
-                        <?php echo $message;?>
                         <input name="edited" type="hidden">
                         <div class="form-group col-xs-12 col-sm-6">
                             <input name="title" type="text" class="form-control input-lg"

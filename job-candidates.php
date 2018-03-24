@@ -21,7 +21,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
     <link rel="icon" href="assets/img/favicon.ico">
@@ -39,7 +39,11 @@ if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_applicant.php';
 } else {
     include 'scriptphp/navbar_recruiter.php';
-}
+};
+if(isset($_POST['id'])){
+$req = $pdo->query('select * from job where id_job = '.$_POST['id'].'');
+if(($data = $req->fetch()) !== false)
+{
 ?>
 <!-- END Navigation bar -->
 
@@ -53,16 +57,16 @@ if ($_SESSION['type'] == 'admin') {
 
     <div class="container">
         <h5>Applicants for</h5>
-        <a class="item-block item-block-flat" href="job-detail.html">
+        <a class="item-block item-block-flat" href="job-detail.php?id=<?php echo $data['id_job']; ?>">
             <header>
                 <img src="assets/img/logo-google.jpg" alt="">
                 <div class="hgroup">
-                    <h4>Senior front-end developer</h4>
-                    <h5>Google</h5>
+                    <h4><?php echo $data['title']; ?></h4>
+                    <h5><?php echo $data['company']; ?></h5>
                 </div>
                 <div class="header-meta">
-                    <span class="location">Menlo park, CA</span>
-                    <span class="label label-success">Full-time</span>
+                    <span class="location"><?php echo $data['location']; ?></span>
+                    <span class="label label-success"><?php echo $data['position']; ?></span>
                 </div>
             </header>
         </a>
@@ -72,33 +76,34 @@ if ($_SESSION['type'] == 'admin') {
 </header>
 <!-- END Page header -->
 
-
 <!-- Main container -->
 <main>
     <section class="no-padding-top bg-alt">
         <div class="container">
             <div class="row">
 
-
+                <?php }
+                $req = $pdo->query('select * from resume where id_job = '.$_POST['id'].'');
+                foreach ($req as $data)
+                {
+                ?>
                 <!-- Candidate item -->
                 <div class="col-xs-12">
                     <div class="item-block">
                         <header>
                             <div class="hgroup">
                                 <h4>
-                                    <a href="resume-detail.html">John Doe</a>
+                                    <a href="resume-detail.php?id=<?php echo $data['id_resume']; ?>"><?php echo $data['name']; ?></a>
                                 </h4>
-                                <h5>Front-end developer</h5>
+                                <h5><?php echo $data['headline']; ?></h5>
                             </div>
                             <div class="header-meta">
-                                <span class="location">Menlo park, CA</span>
-                                <span class="rate">$55 per hour</span>
+                                <span class="location"><?php echo $data['location']; ?></span>
+                                <span class="rate">$<?php echo $data['salary']; ?> per hour</span>
                             </div>
                         </header>
 
                         <footer>
-                            <div class="status"><strong>Applied on:</strong> July 16, 2016</div>
-
                             <div class="action-btn">
                                 <a class="btn btn-xs btn-gray" data-toggle="modal" data-target="#modal-contact" href="#">Contact</a>
                                 <a class="btn btn-xs btn-danger" href="#">Delete</a>
@@ -107,7 +112,7 @@ if ($_SESSION['type'] == 'admin') {
                     </div>
                 </div>
                 <!-- END Candidate item -->
-
+                <?php }} ?>
             </div>
         </div>
     </section>
@@ -133,23 +138,17 @@ if ($_SESSION['type'] == 'admin') {
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title" id="myModalLabel">Send message</h5>
+                <h5 class="modal-title" id="myModalLabel">Send message by mail</h5>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="subject" class="control-label">Subject</label>
-                        <input type="text" class="form-control" id="subject">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">Message</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
+                <?php     $req = $pdo->prepare('select * from resume where id_job = ?');
+                $req->execute([$_POST['id']]);
+                if (($data = $req->fetch()) !== false) {?>
+                    <center><h6><?php echo $data['email']; ?></h6></center>
+                <?php } ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-gray" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send</button>
             </div>
         </div>
     </div>

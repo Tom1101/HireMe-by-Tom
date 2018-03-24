@@ -36,25 +36,13 @@
                 <a class="active" href="index.php">Home</a>
             </li>
             <li>
-                <a href="#">Jobs</a>
-                <ul>
-                    <li><a href="job-list-3.php">Browse jobs</a></li>
-                    <li><a href="job-manage.php">Manage jobs</a></li>
-                </ul>
+                <a href="job-list-3.php">Jobs</a>
             </li>
             <li>
-                <a href="#">Resumes</a>
-                <ul>
-                    <li><a href="resume-list.php">Browse resumes</a></li>
-                    <li><a href="resume-manage.php">Manage resumes</a></li>
-                </ul>
+                <a href="resume-list.php">Resumes</a>
             </li>
             <li>
-                <a href="#">Users</a>
-                <ul>
-                    <li><a href="resume-list.php">Browse users</a></li>
-                    <li><a href="resume-manage.php">Manage user</a></li>
-                </ul>
+                <a href="static-web.php">Statistic and Manage</a>
             </li>
             <!--<li>
               <a href="#">Company</a>

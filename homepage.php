@@ -1,8 +1,9 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     header('location:index.php');
-}
+};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +22,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700'
-          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
     <link rel="icon" href="assets/img/favicon.ico">
@@ -32,6 +32,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
+
 include 'scriptphp/connectDB.php';
 
 $req = $pdo->query('SELECT * FROM job ORDER BY id_job DESC limit 5');
@@ -58,9 +59,9 @@ if ($_SESSION['type'] == 'admin') {
             </h2>
             <h5 class="font-alt">Find your desire one in a minute</h5>
             <br><br><br>
-            <form class="header-job-search">
+            <form class="header-job-search" method="POST" action="job-list-3.php">
                 <div class="input-keyword">
-                    <input type="text" class="form-control" placeholder="Job title, skills, or company">
+                    <input name="jobtitle" type="text" class="form-control" placeholder="Job title, skills, or company">
                 </div>
 
                 <div class="btn-search">

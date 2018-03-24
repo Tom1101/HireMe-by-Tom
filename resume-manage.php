@@ -21,11 +21,9 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700'
-          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" href="assets/img/favicon.ico">
 </head>
 
@@ -33,6 +31,31 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
+
+include 'scriptphp/connectDB.php';
+
+$result = $pdo->query('select count(id_resume) as total from resume');
+$row = $result->fetch();
+$total_records = $row['total'];
+
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+$limit = 4;
+
+// tổng số trang
+$total_page = ceil($total_records / $limit);
+
+// Giới hạn current_page trong khoảng 1 đến total_page
+if ($current_page > $total_page) {
+    $current_page = $total_page;
+} else if ($current_page < 1) {
+    $current_page = 1;
+}
+
+// Tìm Start
+$start = ($current_page - 1) * $limit;
+
+$result = $pdo->query("SELECT * FROM resume LIMIT $start, $limit");
+
 if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
@@ -60,112 +83,127 @@ if ($_SESSION['type'] == 'admin') {
     <section class="no-padding-top bg-alt">
         <div class="container">
             <div class="row">
-
                 <div class="col-xs-12 text-right">
                     <br>
-                    <a class="btn btn-primary btn-sm" href="resume-add.html">Add new resume</a>
+                    <a class="btn btn-primary btn-sm" href="resume-add.php">Add new resume</a>
                 </div>
+                <?php foreach ($result as $data) { ?>
+                    <!-- Resume item -->
+                    <div class="col-xs-12">
+                        <div class="item-block">
+                            <header>
+                                <div class="hgroup">
+                                    <h4><a href="resume-detail.php"><?php echo $data['name']; ?></a></h4>
+                                    <h5><?php echo $data['headline']; ?></h5>
+                                </div>
+                                <div class="header-meta">
+                                    <span class="location"><?php echo $data['location']; ?></span>
+                                    <span class="rate">$<?php echo $data['salary']; ?> per hour</span>
+                                </div>
+                            </header>
 
+                            <footer>
+                                <div class="action-btn">
+                                    <form method="POST" action="resume-edit.php">
+                                        <input name="id" type="hidden" value="<?php echo $data['id_resume']; ?>">
+                                        <button class="btn btn-xs btn-gray" type="submit">Edit</button>
+                                    <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal"
+                                       data-id="<?php echo $data['id_resume']; ?>">Delete</a>
+                                    </form>
+                                </div>
+                            </footer>
 
-                <!-- Resume item -->
-                <div class="col-xs-12">
-                    <div class="item-block">
-                        <header>
-                            <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar.jpg"
-                                                              alt=""></a>
-                            <div class="hgroup">
-                                <h4><a href="resume-detail.html">John Doe</a></h4>
-                                <h5>Front-end developer</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Menlo park, CA</span>
-                                <span class="rate">$55 per hour</span>
-                            </div>
-                        </header>
-
-                        <footer>
-                            <p class="status"><strong>Updated on:</strong> March 10, 2016</p>
-
-                            <div class="action-btn">
-                                <a class="btn btn-xs btn-gray" href="#">Hide</a>
-                                <a class="btn btn-xs btn-gray" href="#">Edit</a>
-                                <a class="btn btn-xs btn-danger" href="#">Delete</a>
-                            </div>
-                        </footer>
+                        </div>
                     </div>
-                </div>
+                <?php } ?>
                 <!-- END Resume item -->
-
-
-                <!-- Resume item -->
-                <div class="col-xs-12">
-                    <div class="item-block">
-                        <header>
-                            <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar.jpg"
-                                                              alt=""></a>
-                            <div class="hgroup">
-                                <h4><a href="resume-detail.html">John Doe</a></h4>
-                                <h5>Full stack developer</h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Menlo park, CA</span>
-                                <span class="rate">$85 per hour</span>
-                            </div>
-                        </header>
-
-                        <footer>
-                            <p class="status"><strong>Updated on:</strong> March 03, 2016</p>
-
-                            <div class="action-btn">
-                                <a class="btn btn-xs btn-gray" href="#">Hide</a>
-                                <a class="btn btn-xs btn-gray" href="#">Edit</a>
-                                <a class="btn btn-xs btn-danger" href="#">Delete</a>
-                            </div>
-                        </footer>
-                    </div>
-                </div>
-                <!-- END Resume item -->
-
-
-                <!-- Resume item -->
-                <div class="col-xs-12">
-                    <div class="item-block">
-                        <header>
-                            <a href="resume-detail.html"><img class="resume-avatar" src="assets/img/avatar.jpg"
-                                                              alt=""></a>
-                            <div class="hgroup">
-                                <h4><a href="resume-detail.html">John Doe</a></h4>
-                                <h5>PHP developer <span class="label label-info">Hidden</span></h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location">Menlo park, CA</span>
-                                <span class="rate">$60 per hour</span>
-                            </div>
-                        </header>
-
-                        <footer>
-                            <p class="status"><strong>Updated on:</strong> Feb 27, 2016</p>
-
-                            <div class="action-btn">
-                                <a class="btn btn-xs btn-gray" href="#">Show</a>
-                                <a class="btn btn-xs btn-gray" href="#">Edit</a>
-                                <a class="btn btn-xs btn-danger" href="#">Delete</a>
-                            </div>
-                        </footer>
-                    </div>
-                </div>
-                <!-- END Resume item -->
-
-
             </div>
+            <nav class="text-center">
+                <ul class="pagination">
+                    <?php
+                    if(!isset($_GET['id_user'])){
+                        // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                        if ($current_page > 1 && $total_page > 1){
+                            echo '<li><a href="resume-manage.php?page='.($current_page-1).'"><i class="ti-angle-left"></i></a></li> ';
+                        }
+
+                        // Lặp khoảng giữa
+                        for ($i = 1; $i <= $total_page; $i++){
+                            // Nếu là trang hiện tại thì hiển thị thẻ span
+                            // ngược lại hiển thị thẻ a
+                            if ($i == $current_page){
+                                echo '<li class="active"><span>'.$i.'</span></li> ';
+                            }
+                            else{
+                                echo '<li><a href="resume-manage.php?page='.$i.'">'.$i.'</a></li> ';
+                            }
+                        }
+
+                        // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                        if ($current_page < $total_page && $total_page > 1){
+                            echo '<li><a href="resume-manage.php?page='.($current_page-1).'"><i class="ti-angle-right"></i></a></li> ';
+                        }
+                    } else {
+                        // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                        if ($current_page > 1 && $total_page > 1){
+                            echo '<li><a href="resume-manage.php?id_user='.$_GET['id_user'].'&page='.($current_page-1).'"><i class="ti-angle-left"></i></a></li> ';
+                        }
+
+                        // Lặp khoảng giữa
+                        for ($i = 1; $i <= $total_page; $i++){
+                            // Nếu là trang hiện tại thì hiển thị thẻ span
+                            // ngược lại hiển thị thẻ a
+                            if ($i == $current_page){
+                                echo '<li class="active"><span>'.$i.'</span></li> ';
+                            }
+                            else{
+                                echo '<li><a href="resume-manage.php?id_user='.$_GET['id_user'].'&page='.$i.'">'.$i.'</a></li> ';
+                            }
+                        }
+
+                        // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                        if ($current_page < $total_page && $total_page > 1){
+                            echo '<li><a href="resume-manage.php?id_user='.$_GET['id_user'].'&page='.($current_page-1).'"><i class="ti-angle-right"></i></a></li> ';
+                        }
+                    };
+                    ?>
+                </ul>
+            </nav>
         </div>
     </section>
 </main>
 <!-- END Main container -->
 
 
+<!-- The Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deleting Job ?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Are you sure that you want to delete the job ?
+            </div>
+
+            <!-- Modal footer -->
+            <form method="POST" action="resume-delete.php">
+            <div class="modal-footer center">
+                <input id="hrefdelete" name="id" type="hidden" value="x">
+                <button type="submit" class="btn btn-success">Yes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End The Modal -->
 <!-- Site footer -->
-<?php include 'footer.php' ?>
+<?php include 'scriptphp/footer.php' ?>
 <!-- END Site footer -->
 
 
@@ -177,6 +215,12 @@ if ($_SESSION['type'] == 'admin') {
 <script src="assets/js/app.min.js"></script>
 <script src="assets/js/thejobs.js"></script>
 <script src="assets/js/custom.js"></script>
-
+<script>
+    $('#myModal').on('show.bs.modal', function (e) {
+        var myRoomNumber = $(e.relatedTarget).attr('data-id');
+        $(this).find('.roomNumber').text(myRoomNumber);
+        $("#hrefdelete").attr("value", myRoomNumber);
+    });
+</script>
 </body>
 </html>

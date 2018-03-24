@@ -6,7 +6,7 @@
  * Time: 15:24
  */
 if (isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
-    $result = $pdo->query('select count(id_job) as total from job where (concat(title,location,company) like "%'.$_POST['jobtitle'].'%")');
+    $result = $pdo->query('select count(id_resume) as total from resume where (concat(name,headline,location,salary) like "%'.$_POST['jobtitle'].'%")');
     $row = $result->fetch();
     $total_records = $row['total'];
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -22,7 +22,7 @@ if (isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
 // Tìm Start
     $start = ($current_page - 1) * $limit;
 } else {
-    $result = $pdo->query('select count(id_job) as total from job');
+    $result = $pdo->query('select count(id_resume) as total from resume');
     $row = $result->fetch();
     $total_records = $row['total'];
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -40,7 +40,7 @@ if (isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
 };
 
 if(isset($_POST['jobtitle']) && !empty($_POST['jobtitle'])) {
-    $result = $pdo->query('SELECT * FROM job WHERE (concat(title,location,company) like "%'.$_POST['jobtitle'].'%") LIMIT ' . $start . ', ' . $limit . '');
+    $result = $pdo->query('SELECT * FROM resume WHERE (concat(name,headline,location,salary) like "%'.$_POST['jobtitle'].'%") LIMIT ' . $start . ', ' . $limit . '');
 } else {
-    $result = $pdo->query('SELECT * FROM job LIMIT '.$start.', '.$limit.'');
+    $result = $pdo->query('SELECT * FROM resume LIMIT '.$start.', '.$limit.'');
 };

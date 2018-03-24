@@ -102,5 +102,5 @@ if (isset($_POST['user_login'])) {
 <script src="assets/js/custom.js"></script>
 
 </body>
-<?php } ?>
 </html>
+<?php } ?>
