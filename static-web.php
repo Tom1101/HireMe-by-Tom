@@ -27,7 +27,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Favicons -->
@@ -53,7 +53,7 @@ if ($_SESSION['type'] == 'admin') {
 <header class="site-header text-center" style="background-image: url(assets/img/bg-banner1.jpg)">
     <div class="container page-name">
         <h1 class="text-center">Statistic</h1>
-        <p class="lead text-center">Use following search box to find jobs that fits you better</p>
+        <p class="lead text-center">See how many Jobs, Resumes, Users in your site.</p>
     </div>
 </header>
 <!-- END Page header -->
