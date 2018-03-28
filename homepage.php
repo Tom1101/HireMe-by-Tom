@@ -3,7 +3,8 @@ session_start();
 
 if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     header('location:index.php');
-};
+}
+;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,10 +33,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 
 <!-- Navigation bar -->
 <?php
-
 include 'scriptphp/connectDB.php';
-
-$req = $pdo->query('SELECT * FROM job ORDER BY id_job DESC limit 5');
 
 if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_admin.php';
@@ -43,7 +41,8 @@ if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_applicant.php';
 } else {
     include 'scriptphp/navbar_recruiter.php';
-};
+}
+;
 ?>
 <!-- END Navigation bar -->
 
@@ -85,9 +84,9 @@ if ($_SESSION['type'] == 'admin') {
             </header>
 
             <div class="row item-blocks-connected">
-<?php foreach ($req as $data){
+<?php foreach ($req as $data) {
 
-?>
+    ?>
                 <!-- Job item -->
                 <div class="col-xs-12">
                     <a class="item-block" href="job-detail.php?id=<?php echo $data['id_job']; ?>">
@@ -165,7 +164,7 @@ if ($_SESSION['type'] == 'admin') {
 
 </main>
 <!-- END Main container -->
-<?php include 'scriptphp/footer.php'; ?>
+<?php include 'scriptphp/footer.php';?>
 <!-- Back to top button -->
 <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
 <!-- END Back to top button -->

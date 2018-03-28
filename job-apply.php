@@ -129,8 +129,16 @@ if(isset($_GET['id'])){
             <!-- END Resume item -->
             <?php }
             if(isset($_GET['resume'])){
-                $req = $pdo->query('update resume set id_job = '.$_GET['id'].' where id_resume = '.$_GET['resume'].'');
-                echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Well done ! Apply Job Success ! </strong></div>";
+                if(!empty($_GET['resume'])) {
+                    $req = $pdo->prepare('update resume set id_job = ? where id_resume = ?');
+                    if ($req->execute([$_GET['id'], $_GET['resume']])) {
+                        echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Well done ! Apply Job Success ! </strong></div>";
+                    } else {
+                        echo "<div class=\"alert alert-warning\" role=\"alert\"><strong>Warning!</strong> Please enter valid values.</div>";
+                    }
+                } else {
+                    echo "<div class=\"alert alert-warning\" role=\"alert\"><strong>Warning!</strong> You are not select the resume.</div>";
+                }
             };
             ?>
             <br>
@@ -138,7 +146,7 @@ if(isset($_GET['id'])){
                 <div class="col-xs-12 col-md-4">
                 </div>
                 <div class="col-xs-12 col-md-4">
-                    <a class="btn btn-block btn-success" onclick="location.reload();">Apply to this job</a>
+                    <a id="applybutton" style="display:none" class="btn btn-block btn-success" onclick="location.reload();">Apply to this job</a>
                 </div>
                 <div class="col-xs-12 col-md-4">
                 </div>
@@ -171,6 +179,7 @@ if(isset($_GET['id'])){
         if (typeof (history.pushState) != "undefined") {
             var obj = { Title: title, Url: url };
             history.pushState(obj, obj.Title, obj.Url);
+            document.getElementById('applybutton').style.display='block';
         } else {
             alert("Browser does not support HTML5.");
         }

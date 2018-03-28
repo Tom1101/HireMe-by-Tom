@@ -80,7 +80,7 @@ if ($_SESSION['type'] == 'admin') {
                                 echo $data['total'];
                                 ?></h4>
                             <br>
-                            <a href="user-manage-rec.php" class="btn btn-primary">Check it out !</a>
+                            <a href="user-manage.php?type=recruiter" class="btn btn-primary">Check it out !</a>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@ if ($_SESSION['type'] == 'admin') {
                                 echo $data['total'];
                                 ?></h4>
                             <br>
-                            <a href="user-manage-app.php" class="btn btn-primary">Check it out !</a>
+                            <a href="user-manage.php?type=applicant" class="btn btn-primary">Check it out !</a>
                         </div>
                     </div>
                 </div>

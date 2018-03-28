@@ -6,30 +6,34 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
     include 'scriptphp/connectDB.php';
 
     if (isset($_POST['user_signup'])) {
+        //Google reCaptcha
+        $captcha;
+        if (isset($_POST['g-recaptcha-response'])) {
+            $captcha = $_POST['g-recaptcha-response'];
+        }
+        if (!$captcha) {
+            echo '<h2>Please valide Captcha</h2>';
+        } else {
+            $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+            if ($response . success == false) {
+                echo '<h2>SPAM!</h2>';
+            }
+        }
+        ;
+
         // Vérification des identifiants
-        if(!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['type'])){
-            $req = $pdo->prepare('INSERT INTO user_login(username, password, type) VALUES (?,?,?)');
-            if ($req->execute([$_POST['username'], $_POST['password'], $_POST['type']])) {
-                ?>
-                <div class="alert alert-success" role="alert">
-                    <strong>Well done ! Welcome <?php echo $_POST['username']; ?> ! </strong>
-                </div>
-                <meta http-equiv="refresh" content="1;url=user-login.php"/>
-                <?php
+        if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['type'] && !empty($_POST['email']))) {
+            $req = $pdo->prepare('INSERT INTO user_login(username, password, type, status, email) VALUES (?,?,?,?,?)');
+            if ($req->execute([$_POST['username'], $_POST['password'], $_POST['type'], 1, $_POST['email']])) {
+                echo '<div class="alert alert-success" role="alert">
+                    <strong>Well done ! Welcome <?php echo $_POST[\'username\']; ?> ! </strong>
+                </div>';
+                echo '<meta http-equiv="refresh" content="1;url=user-login.php"/>';
             } elseif ($req->errorCode() == 23000) {
-                ?>
-                <div class="alert alert-warning" role="alert">
-                    <strong>Warning!</strong> This username has already existed. Please to contact the admin for
-                    support.
-                </div>
-                <?php
+                echo '<div class="alert alert-warning" role="alert"><strong>Warning!</strong> This username has already existed. Please to contact the admin for support.</div>';
             }
         } else {
-            ?>
-            <div class="alert alert-warning" role="alert">
-                <strong>Warning!</strong> Please enter valid values.
-            </div>
-            <?php
+            echo '<div class="alert alert-warning" role="alert"><strong>Warning!</strong> Please enter valid values.</div>';
         }
     }
     ?>
@@ -55,6 +59,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
 
         <!-- Favicons -->
         <link rel="icon" href="assets/img/favicon.ico">
+        <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
     </head>
 
     <body class="login-page">
@@ -63,7 +68,7 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
     <main>
 
         <div class="login-block">
-            <img src="assets/img/logo.png" alt="">
+            <a href="index.php"><img src="assets/img/logo.png" alt=""></a>
             <h1>Sign up your account</h1>
 
             <form method="POST" action="user-register.php">
@@ -75,6 +80,13 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="radio" name="type" id="recruiter" value="recruiter">
                     <label for="recruiter">Recruiter</label>
+                </div>
+                <hr class="hr-xs">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="ti-email"></i></span>
+                        <input name="email" type="email" class="form-control" placeholder="Your email">
+                    </div>
                 </div>
                 <hr class="hr-xs">
                 <div class="form-group">
@@ -95,6 +107,12 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
 
                 <hr class="hr-xs">
 
+                <div class="form-group">
+                    <center>
+                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                    </center>
+                </div>
+
                 <button name="user_signup" class="btn btn-primary btn-block" type="submit">Sign up</button>
 
             </form>
@@ -114,4 +132,4 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['username'])) {
 
     </body>
     </html>
-<?php } ?>
+<?php }?>

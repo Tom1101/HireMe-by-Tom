@@ -33,7 +33,7 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 <?php
 include 'scriptphp/connectDB.php';
 
-include 'scriptphp/searchpagepagi.php';
+include 'scriptphp/searchpagepagi_job.php';
 
 if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_admin.php';
