@@ -42,7 +42,6 @@ if (isset($_POST['id_block'])) {
 };
 
 if (isset($_POST['id_unblock'])) {
-    echo $_POST['id_unblock'];
     $req = $pdo->prepare('update user_login set status = 1 where id_user = ?');
     $req->execute([$_POST['id_unblock']]);
     echo '<div class="alert alert-success" role="alert"><strong>Well done ! Unblocked this User ! </strong></div>';

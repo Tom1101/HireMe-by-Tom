@@ -3,8 +3,7 @@ session_start();
 
 if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     header('location:index.php');
-}
-;
+};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +22,8 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700'
+          rel='stylesheet' type='text/css'>
 
     <!-- Favicons -->
     <link rel="icon" href="assets/img/favicon.ico">
@@ -35,14 +35,15 @@ if (!isset($_SESSION['id_user']) && !isset($_SESSION['username'])) {
 <?php
 include 'scriptphp/connectDB.php';
 
+$req = $pdo->query('SELECT * FROM job ORDER BY id_job DESC limit 5');
+
 if ($_SESSION['type'] == 'admin') {
     include 'scriptphp/navbar_admin.php';
 } else if ($_SESSION['type'] == 'applicant') {
     include 'scriptphp/navbar_applicant.php';
 } else {
     include 'scriptphp/navbar_recruiter.php';
-}
-;
+};
 ?>
 <!-- END Navigation bar -->
 
@@ -84,26 +85,26 @@ if ($_SESSION['type'] == 'admin') {
             </header>
 
             <div class="row item-blocks-connected">
-<?php foreach ($req as $data) {
+                <?php foreach ($req as $data) {
 
-    ?>
-                <!-- Job item -->
-                <div class="col-xs-12">
-                    <a class="item-block" href="job-detail.php?id=<?php echo $data['id_job']; ?>">
-                        <header>
-                            <div class="hgroup">
-                                <h4><?php echo $data['title']; ?></h4>
-                                <h5><?php echo $data['company']; ?></h5>
-                            </div>
-                            <div class="header-meta">
-                                <span class="location"><?php echo $data['location']; ?></span>
-                                <span class="label label-success"><?php echo $data['position']; ?></span>
-                            </div>
-                        </header>
-                    </a>
-                </div>
-                <!-- END Job item -->
-<?php }?>
+                    ?>
+                    <!-- Job item -->
+                    <div class="col-xs-12">
+                        <a class="item-block" href="job-detail.php?id=<?php echo $data['id_job']; ?>">
+                            <header>
+                                <div class="hgroup">
+                                    <h4><?php echo $data['title']; ?></h4>
+                                    <h5><?php echo $data['company']; ?></h5>
+                                </div>
+                                <div class="header-meta">
+                                    <span class="location"><?php echo $data['location']; ?></span>
+                                    <span class="label label-success"><?php echo $data['position']; ?></span>
+                                </div>
+                            </header>
+                        </a>
+                    </div>
+                    <!-- END Job item -->
+                <?php } ?>
             </div>
 
             <br><br>
@@ -164,7 +165,7 @@ if ($_SESSION['type'] == 'admin') {
 
 </main>
 <!-- END Main container -->
-<?php include 'scriptphp/footer.php';?>
+<?php include 'scriptphp/footer.php'; ?>
 <!-- Back to top button -->
 <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
 <!-- END Back to top button -->
